@@ -1,18 +1,17 @@
 $(function () {
-    $("div.img-trick").slice(0, 2).show();
-    $("#loadMoreImg").on('click', function (e) {
+    $("#loadMedia").on('click', function (e) {
         e.preventDefault();
-        $("div.img-trick:hidden").slice(0, 2).slideDown();
-        if ($("div.img-trick:hidden").length == 0) {
-            $("#loadMoreImg").fadeOut('slow');
-        }
-        $('html,body').animate({
-            scrollTop: $(this).offset().top
-        }, 1500);
-        if ($("div.img-trick:last").css('display') == 'block') {
-            $('#loadMoreImg').hide();
-        }
+        $("div.load-media").removeClass('d-none');
+        $("#loadMedia").addClass('d-none');
+        $("#hideMedia").removeClass('d-none');
     });
+    $("#hideMedia").on('click', function (e) {
+        e.preventDefault();
+        $("div.load-media").addClass('d-none');
+        $("#loadMedia").removeClass('d-none');
+        $("#hideMedia").addClass('d-none');
+    });
+
 });
 
 $(function () {

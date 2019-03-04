@@ -4,7 +4,12 @@
 
 {% block body %}
     <div class="w-100 h-100">
-        <div class="home-bg"></div>
+        <div class="home-bg">          
+            <div class="container">
+                <span class="slogan"><p class="slogan-p">Born to snowboarding</p></span>              
+            </div>
+            <i class="fas fa-chevron-down fa-4x chevron-down"></i>                                         
+        </div>           
     </div>
     <div id="tricks" class="container p-5">
         <div class="row">
@@ -18,6 +23,9 @@
                 </div>               
             </div>     
         {% endfor %}    
-        </div>           
+        </div>
+        
+                   
     </div>
+    <div class="container-fluid cup"><i class="fas fa-chevron-up fa-4x chevron-up"></i></div>
 {% endblock %}
