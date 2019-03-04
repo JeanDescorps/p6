@@ -1,0 +1,68 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo {
+    max-height: 40px;
+}
+
+.home-bg {
+    background-image: url('/images/home.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    width: 100%;
+    height: 100vh;
+}
+
+.card {
+    box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px #5a61690f, 0 7px 70px rgba(90, 97, 105, 0.1);
+    border-radius: 0.625rem;
+}
+
+.card-img-top {
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+}
+
+.trick-link {
+    font-weight: 900;
+    font-size: 0.765625rem;
+    border-radius: 0.625rem;
+}
+
+.trick-data {
+    font-size: 0.8rem;
+}
+
+.list-inline-item:not(:first-child) {
+    margin-left: 0.5rem;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+/* Load More Function */
+
+div.img-trick {
+    display: none;
+}
+
+div.video-trick {
+    display: none;
+}
+
+/* End Load More Function */

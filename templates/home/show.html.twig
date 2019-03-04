@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks - {{ trick.title }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-10 col-md-offset-1 mt-5 mb-4">              
+                <div class="card mt-5">
+                    <img class="card-img-top" src="/images/{{ trick.image }}" alt="Trick">
+                    <div class="card-body">
+                        <ul class="list-inline trick-data">
+                            <li class="list-inline-item">
+                                Par : {{ trick.user.username }}
+                            </li> |           
+                            <li class="list-inline-item">
+                                Ajouté le {{ trick.createdAt | date('d/m/Y') }} (<small>Mise à jour le : </small>)
+                            </li> |                            
+                            <li class="list-inline-item">
+                                Catégorie : {{ trick.category.title }}
+                            </li> |
+                            <li class="list-inline-item">
+                                {{ trick.comments | length }} commentaires
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="row">
+                                    {% for image in images %}
+                                        <div class="col-lg-6 col-md-12 img-trick">
+                                            <img class="image pt-2 pb-2" src="/images/{{ image.name }}" alt="Nose Grab">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="text-center mt-2"><a href="#" id="loadMoreImg"><i class="fas fa-plus-circle fa-2x"></i></a></div>                       
+                            </div>                           
+                            <div class="col-lg-6 col-md-12">
+                                <div class="row">
+                                {% for video in videos %}                                   
+                                    <div class="col-lg-6 col-md-12 video-trick">
+                                        <iframe class="video-iframe pt-2 pb-2" src="{{ video.url }}" allowfullscreen></iframe>
+                                    </div>                                  
+                                {% endfor %}
+                                </div>
+                                <div class="text-center mt-2"><a href="#" id="loadMoreVideo"><i class="fas fa-plus-circle fa-2x"></i></a></div>
+                            </div>                            
+                        </div>
+                        <hr>
+                        <h4 class="card-title"><strong>{{ trick.title }}</strong></h4>
+                        <p class="card-text">{{ trick.content }}</p>
+                    </div>
+                </div>               
+            </div>     
+        </div>           
+    </div>
+{% endblock %}
