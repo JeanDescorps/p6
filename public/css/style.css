@@ -1,0 +1,168 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo {
+    max-height: 40px;
+}
+
+/* Home Image */
+
+.home-bg {
+    background-image: url('/images/home.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    width: 100%;
+    height: 100vh;
+}
+
+.slogan {
+    height: 100vh;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-transform: uppercase;
+    color: black;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.slogan-p {
+    align-self: flex-start;
+    font-family: 'Shadows Into Light', cursive;
+}
+
+.chevron-down {
+    position: absolute;
+    right: 0.5%;
+    bottom: 0%;
+}
+
+.cup {
+    position: relative;
+}
+
+.chevron-up {
+    position: absolute;
+    right: 0.5%;
+    bottom: 0%;
+}
+
+/* End Home image */
+
+footer {
+    background-color: #1a1a1a;
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+/* Card */
+
+.card {
+    box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px #5a61690f, 0 7px 70px rgba(90, 97, 105, 0.1);
+    border-radius: 0.625rem;
+}
+
+.card-img-top {
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+}
+
+.card-img-top.home {
+    height: 12rem;
+}
+
+.trick-link {
+    font-weight: 900;
+    font-size: 0.765625rem;
+    border-radius: 0.625rem;
+}
+
+/* End Card */
+
+/* Tricks Info */
+
+.trick-data {
+    font-size: 0.8rem;
+}
+
+.list-inline-item:not(:first-child) {
+    margin-left: 0.5rem;
+}
+
+/* End Tricks Info */
+
+/* Carousel */
+
+div.carousel div.carousel-item>img {
+    width: 100%;
+    height: 18.75rem;
+}
+
+div.carousel div.carousel-item>iframe {
+    width: 100%;
+    height: 18.75rem;
+    border: 0;
+    display: block;
+}
+
+.carousel-indicators {
+    bottom: -50px;
+}
+
+.carousel-indicators li {
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+}
+
+.carousel-inner {
+    margin-bottom: 50px;
+    border-radius: 0.625rem;
+    box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px #5a61690f, 0 7px 70px rgba(90, 97, 105, 0.1);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    top: 55px;
+    bottom: 55px;
+}
+
+ol {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    div.carousel div.carousel-item>img {
+        height: 15rem;
+    }
+
+    div.carousel div.carousel-item>iframe {
+        height: 15rem;
+    }
+}
+
+/* End Carousel */
+
+/* Load More Function */
+
+div.img-trick {
+    display: none;
+}
+
+div.video-trick {
+    display: none;
+}
+
+/* End Load More Function */

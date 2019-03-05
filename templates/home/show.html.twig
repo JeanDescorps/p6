@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks - {{ trick.title }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-10 col-md-offset-1 mt-5 mb-4">              
+                <div class="card mt-5">
+                    <img class="card-img-top" src="/images/{{ trick.image }}" alt="Trick">
+                    <div class="card-body">
+                        <ul class="list-inline trick-data">
+                            <li class="list-inline-item">
+                                Par : {{ trick.user.username }}
+                            </li> |           
+                            <li class="list-inline-item">
+                                Ajouté le {{ trick.createdAt | date('d/m/Y') }} (<small>Mise à jour le : </small>)
+                            </li> |                            
+                            <li class="list-inline-item">
+                                Catégorie : {{ trick.category.title }}
+                            </li> |
+                            <li class="list-inline-item">
+                                {{ trick.comments | length }} commentaires
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="row d-none d-lg-flex load-media">
+                            <div class="col-lg-6 col-md-12">
+                                <div id="carousel" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        {% for image in images %}
+                                            <li data-target=".carousel" data-slide-to="{{ loop.index0 }}" {% if loop.index0 == 0 %} class="active" {% endif %}></li>
+                                        {% endfor %}
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        {% for image in images %}
+                                            <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
+                                                <img class="d-block" src="/images/{{ image.name }}" alt="Nose Grab">
+                                            </div>
+                                        {% endfor %}        
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carousel" data-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </a> 
+                                </div>
+                            </div>                                          
+                            <div class="col-lg-6 col-md-12">
+                                <div id="carousel-v" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        {% for video in videos %}
+                                            <li data-target="#carousel-v" data-slide-to="{{ loop.index0 }}" {% if loop.index0 == 0 %} class="active" {% endif %}></li>
+                                        {% endfor %}
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        {% for video in videos %}
+                                            <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
+                                                <iframe src="{{ video.url }}" allowfullscreen></iframe> 
+                                            </div>
+                                        {% endfor %}        
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carousel-v" data-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carousel-v" data-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </a> 
+                                </div>
+                            </div>                                                  
+                        </div>
+                        <div class="text-center">
+                            <a href="#" id="loadMedia" class="d-md-block d-lg-none">
+                                <button class="btn btn-outline-secondary">Afficher les médias</button>
+                            </a>
+                            <a href="#" id="hideMedia" class="d-none d-md-none d-lg-none">
+                                <button class="btn btn-outline-secondary mt-3">Masquer les médias</button>
+                            </a>
+                        </div>                
+                        <hr>
+                        <h4 class="card-title"><strong>{{ trick.title }}</strong></h4>
+                        <p class="card-text">{{ trick.content }}</p>
+                    </div>
+                </div>               
+            </div>     
+        </div>           
+    </div>
+{% endblock %}

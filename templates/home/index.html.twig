@@ -4,8 +4,28 @@
 
 {% block body %}
     <div class="w-100 h-100">
-        <div class="home-bg"></div>
+        <div class="home-bg">          
+            <div class="container">
+                <span class="slogan"><p class="slogan-p">Born to snowboarding</p></span>              
+            </div>
+            <a href="#tricks"><i class="fas fa-chevron-down fa-4x chevron-down"></i></a>                                         
+        </div>           
     </div>
-    <div class="container-fluid">
+    <div id="tricks" class="container p-5">
+        <div class="row">
+        {% for trick in tricks %}
+            <div class="col-lg-4 mb-4">              
+                <div class="card">
+                    <a href="{{ path('trick_show', {'id': trick.id}) }}"><img class="card-img-top home" src="/images/{{ trick.image }}" alt="Trick"></a>
+                    <div class="card-body">
+                        <a class="btn btn-outline-info btn-sm trick-link" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.title }}</a>
+                    </div>
+                </div>               
+            </div>     
+        {% endfor %}    
+        </div>
+        
+                   
     </div>
+    <div class="container-fluid cup"><a href="#tricks"><i class="fas fa-chevron-up fa-4x chevron-up"></i></a></div>
 {% endblock %}
