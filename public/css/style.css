@@ -12,7 +12,7 @@ body {
     max-height: 40px;
 }
 
-/* Home Image*/
+/* Home Image */
 
 .home-bg {
     background-image: url('/images/home.jpg');
@@ -43,9 +43,8 @@ body {
 
 .chevron-down {
     position: absolute;
-    z-index: 999;
-    right: 7px;
-    bottom: 7px;
+    right: 0.5%;
+    bottom: 0%;
 }
 
 .cup {
@@ -77,6 +76,10 @@ footer {
 .card-img-top {
     border-top-left-radius: 0.625rem;
     border-top-right-radius: 0.625rem;
+}
+
+.card-img-top.home {
+    height: 12rem;
 }
 
 .trick-link {
@@ -126,6 +129,8 @@ div.carousel div.carousel-item>iframe {
 
 .carousel-inner {
     margin-bottom: 50px;
+    border-radius: 0.625rem;
+    box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px #5a61690f, 0 7px 70px rgba(90, 97, 105, 0.1);
 }
 
 .carousel-control-prev,

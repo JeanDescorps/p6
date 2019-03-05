@@ -28,8 +28,8 @@ class HomeController extends AbstractController
      */
     public function show(Trick $trick, ImageRepository $repo_image, VideoRepository $repo_video)
     {
-        $images = $repo_image->findAll($trick);
-        $videos = $repo_video->findAll($trick);
+        $images = $repo_image->findBy(array('trick' => $trick->getId()));
+        $videos = $repo_video->findBy(array('trick' => $trick->getId()));
         return $this->render('home/show.html.twig', [
             'trick' => $trick,
             'images' => $images,

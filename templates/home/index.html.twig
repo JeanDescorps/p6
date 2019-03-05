@@ -8,7 +8,7 @@
             <div class="container">
                 <span class="slogan"><p class="slogan-p">Born to snowboarding</p></span>              
             </div>
-            <i class="fas fa-chevron-down fa-4x chevron-down"></i>                                         
+            <a href="#tricks"><i class="fas fa-chevron-down fa-4x chevron-down"></i></a>                                         
         </div>           
     </div>
     <div id="tricks" class="container p-5">
@@ -16,7 +16,7 @@
         {% for trick in tricks %}
             <div class="col-lg-4 mb-4">              
                 <div class="card">
-                    <a href="{{ path('trick_show', {'id': trick.id}) }}"><img class="card-img-top" src="/images/{{ trick.image }}" alt="Trick"></a>
+                    <a href="{{ path('trick_show', {'id': trick.id}) }}"><img class="card-img-top home" src="/images/{{ trick.image }}" alt="Trick"></a>
                     <div class="card-body">
                         <a class="btn btn-outline-info btn-sm trick-link" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.title }}</a>
                     </div>
@@ -27,5 +27,5 @@
         
                    
     </div>
-    <div class="container-fluid cup"><i class="fas fa-chevron-up fa-4x chevron-up"></i></div>
+    <div class="container-fluid cup"><a href="#tricks"><i class="fas fa-chevron-up fa-4x chevron-up"></i></a></div>
 {% endblock %}
