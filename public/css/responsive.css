@@ -1,0 +1,13 @@
+@media (max-width: 768px) {
+    div.carousel div.carousel-item>img {
+        height: 15rem;
+    }
+
+    div.carousel div.carousel-item>iframe {
+        height: 15rem;
+    }
+
+    .slogan-p {
+        margin-bottom: 5rem;
+    }
+}
