@@ -15,18 +15,26 @@ $(function () {
 });
 
 $(function () {
-    $("div.video-trick").slice(0, 2).show();
-    $("#loadMoreVideo").on('click', function (e) {
+    $("div.trick").slice(0, 6).show();
+    $("#loadMoreTrick").on('click', function (e) {
         e.preventDefault();
-        $("div.video-trick:hidden").slice(0, 2).slideDown();
-        if ($("div.video-trick:hidden").length == 0) {
-            $("#loadMoreVideo").fadeOut('slow');
+        $("div.trick:hidden").slice(0, 6).slideDown();
+        if ($("div.trick:hidden").length == 0) {
+            $("#loadMoreTrick").hide('slow');
+            $("#loadLessTrick").show('slow');
         }
-        $('html,body').animate({
-            scrollTop: $(this).offset().top
-        }, 1500);
     });
-    if ($("div.video-trick:last").css('display') == 'block') {
-        $('#loadMoreVideo').hide();
-    }
+    $("#loadLessTrick").on('click', function (e) {
+        e.preventDefault();
+        $("div.trick").slice(6, $("div.trick").length).hide();
+        $("#loadLessTrick").hide('slow');
+        $("#loadMoreTrick").show('slow');
+
+    });
+});
+
+$(document).ready(function () {
+    $('.enlarge').on('click', function () {
+        $(this).toggleClass('clic-image');
+    });
 });

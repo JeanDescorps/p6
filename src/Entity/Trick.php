@@ -65,6 +65,11 @@ class Trick
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=500)
+     */
+    private $Lead;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -238,6 +243,18 @@ class Trick
                 $comment->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLead(): ?string
+    {
+        return $this->Lead;
+    }
+
+    public function setLead(string $Lead): self
+    {
+        $this->Lead = $Lead;
 
         return $this;
     }

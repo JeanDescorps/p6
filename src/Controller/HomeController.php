@@ -12,8 +12,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
+     * Display the home page
+     *
      * @Route("/", name="home")
+     *
+     * @param TrickRepository $repo
+     *
+     * @return Response
      */
+
     public function index(TrickRepository $repo)
     {
         $tricks = $repo->findAll();
@@ -24,7 +31,15 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Display the single trick page with trick data
+     *
      * @Route("/trick/{id}", name="trick_show")
+     *
+     * @param Trick $trick
+     * @param ImageRepository $repo_image
+     * @param VideoRepository $repo_video
+     *
+     * @return Response
      */
     public function show(Trick $trick, ImageRepository $repo_image, VideoRepository $repo_video)
     {

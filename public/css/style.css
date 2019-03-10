@@ -57,7 +57,15 @@ body {
     bottom: 0%;
 }
 
-/* End Home image */
+.tricks-anchor {
+    /* Anchor and fixed navbar */
+    display: block;
+    height: 98.75px;
+    margin-top: -98.75px;
+    visibility: hidden;
+}
+
+/* End */
 
 footer {
     background-color: #1a1a1a;
@@ -66,7 +74,7 @@ footer {
     padding-bottom: 30px;
 }
 
-/* Card */
+/* Tricks Cards */
 
 .card {
     box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px #5a61690f, 0 7px 70px rgba(90, 97, 105, 0.1);
@@ -88,9 +96,14 @@ footer {
     border-radius: 0.625rem;
 }
 
-/* End Card */
+.change-link {
+    font-size: 0.60rem;
+    color: #1F9BCF;
+}
 
-/* Tricks Info */
+/* End */
+
+/* Trick */
 
 .trick-data {
     font-size: 0.8rem;
@@ -100,7 +113,15 @@ footer {
     margin-left: 0.5rem;
 }
 
-/* End Tricks Info */
+.no-medias {
+    border: 2px solid grey;
+}
+
+.no-medias>p {
+    color: grey;
+}
+
+/* End */
 
 /* Carousel */
 
@@ -151,18 +172,47 @@ ol {
     div.carousel div.carousel-item>iframe {
         height: 15rem;
     }
+
+    .slogan-p {
+        margin-bottom: 5rem;
+    }
 }
 
-/* End Carousel */
+/* End */
+
+/* Enlarge Image  */
+
+.enlarge.clic-image {
+    transform: scale(2, 2);
+    z-index: 100;
+}
+
+/* End */
 
 /* Load More Function */
 
-div.img-trick {
+div.trick {
     display: none;
 }
 
-div.video-trick {
+#loadLessTrick {
     display: none;
 }
 
-/* End Load More Function */
+/* End */
+
+/* Sign in Page */
+
+.login {
+    margin-top: 12rem;
+    margin-bottom: 3rem;
+}
+
+/* End */
+
+/* Registration Page */
+
+.registration {
+    margin-top: 12rem;
+    margin-bottom: 3rem;
+}
