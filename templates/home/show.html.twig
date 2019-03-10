@@ -3,6 +3,7 @@
 {% block title %}SnowTricks - {{ trick.title }}{% endblock %}
 
 {% block body %}
+    <!-- Start Trick -->
     <div class="container mt-5">
         <div class="row justify-content-center mt-5">
             <div class="col-md-10 col-md-offset-1 mt-5 mb-4">              
@@ -27,6 +28,7 @@
                         <h4 class="card-title"><strong>{{ trick.title }}</strong></h4>
                         <p class="card-text">{{ trick.lead }}</p>
                         <hr>
+                        <!-- Start Carousel -->
                         {% if (images) or (videos) %}
                             <div class="row d-none d-lg-flex load-media">
                                 <div class="col-lg-6 col-md-12">
@@ -89,6 +91,7 @@
                                 </div>
                             </div>                           
                         {% endif %}
+                        <!-- End Carousel -->
                         <hr>
                         <h5 class="card-title">Description</h5>
                         <p class="card-text text-justify">{{ trick.content }}</p>                                    
@@ -97,4 +100,5 @@
             </div>     
         </div>           
     </div>
+    <!--  End Trick -->
 {% endblock %}
