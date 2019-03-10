@@ -5,23 +5,34 @@
 {% block body %}
     <div class="container login">
         <div class="row justify-content-center">
-                <div class="col-2">
-                    <img class="img-fluid mb-5" src="/images/login-logo.png" alt="Login Logo">
-                </div>               
-            </div>
-        <div class="row justify-content-center">           
+            <div class="col-2">
+                <img class="img-fluid mb-5" src="/images/login-logo.png" alt="Login Logo">
+            </div>               
+        </div>
+        <div class="row justify-content-center">         
             <div class="col-md-6">
                 <h1 class="mb-5 text-center">Connectez-vous</h1>
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error | trans ({}, 'error')}}
+                    </div>
+                {% endif %}
                 <form class="mb-5" action="{{ path('account_login') }}" method="post">
                     <div class="form-group">
                         <label for="username">Nom d'utilisateur</label>
-                        <input type="text" name="_username" id="username" class="form-control" placeholder="Nom d'utilisateur" required>
+                        <input type="text" name="_username" id="username" class="form-control" placeholder="Nom d'utilisateur" value="{{ username }}" required>
                     </div>     
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="password">Mot de passe</label>
                         <input type="password" name="_password" id="password" class="form-control" placeholder="Mot de passe" required>
                     </div>
-                    <div class="form-group">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="form-group mt-5 text-center">
                         <button type="submit" class="btn btn-success">Connexion</button>
                     </div>
                 </form>

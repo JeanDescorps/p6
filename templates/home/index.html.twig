@@ -11,21 +11,34 @@
             <a href="#tricks"><i class="fas fa-chevron-down fa-4x chevron-down"></i></a>                                         
         </div>           
     </div>
-    <div id="tricks" class="container p-5">
+    <span class="tricks-anchor" id="tricks"></span>
+    <div class="container p-5">
         <div class="row">
-        {% for trick in tricks %}
-            <div class="col-lg-4 mb-4">              
-                <div class="card">
-                    <a href="{{ path('trick_show', {'id': trick.id}) }}"><img class="card-img-top home" src="/images/{{ trick.image }}" alt="Trick"></a>
-                    <div class="card-body">
-                        <a class="btn btn-outline-info btn-sm trick-link" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.title }}</a>
-                    </div>
-                </div>               
-            </div>     
-        {% endfor %}    
-        </div>
-        
-                   
+            {% for trick in tricks %}
+                <div class="col-lg-4 mb-4 trick">              
+                    <div class="card">
+                        <a href="{{ path('trick_show', {'id': trick.id}) }}"><img class="card-img-top home" src="/images/{{ trick.image }}" alt="Trick"></a>
+                        <div class="card-body test">
+                            <a class="btn btn-outline-info btn-sm trick-link" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.title }}</a>
+                            {% if (app.user) and (app.user.username == trick.user.username) %}
+                                <a class="float-right change-link ml-3 mr-3 pt-2" href=""><i class="fas fa-pen fa-2x"></i></a>
+                                <a class="float-right change-link ml-2 pt-2" href=""><i class="fas fa-trash-alt fa-2x"></i></a>                          
+                            {% endif %}                      
+                        </div>
+                    </div>               
+                </div>     
+            {% endfor %}
+            <div class="container">
+                <div class="row justify-content-center m-3">
+                    <a href="#" id="loadMoreTrick"><i class="fas fa-plus-circle fa-3x"></i></a>
+                    <a href="#" id="loadLessTrick"><i class="fas fa-minus-circle fa-3x"></i></a>              
+                </div>
+            </div>          
+        </div>         
     </div>
-    <div class="container-fluid cup"><a href="#tricks"><i class="fas fa-chevron-up fa-4x chevron-up"></i></a></div>
+    <div class="container-fluid cup">
+        <a href="#tricks">
+            <i class="fas fa-chevron-up fa-4x chevron-up"></i>
+        </a>
+    </div>
 {% endblock %}
