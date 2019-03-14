@@ -43,11 +43,6 @@ class PasswordUpdate
      */
     private $newPassword;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getOldPassword(): ?string
     {
         return $this->oldPassword;
