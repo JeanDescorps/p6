@@ -34,6 +34,12 @@ class RegistrationType extends AbstractType
                     'placeholder' => 'Mot de passe',
                 ],
             ))
+            ->add('passwordConfirm', PasswordType::class, array(
+                'label' => 'Confirmation de mot de passe',
+                'attr' => [
+                    'placeholder' => 'Veuillez confirmer votre mot de passe',
+                ],
+            ))
             ->add('Inscription', SubmitType::class, array(
                 'attr' => [
                     'class' => 'btn btn-success',

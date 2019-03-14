@@ -1,0 +1,282 @@
+/*-----------------------------------------------------------------------------------*/
+
+/*  /* Navbar Aside */
+
+/*-----------------------------------------------------------------------------------*/
+
+.main-sidebar {
+    top: 0;
+    position: fixed;
+    height: calc(100vh);
+    background: #fff;
+    z-index: 1070;
+    will-change: transform;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    box-shadow: 0 0.125rem 9.375rem rgba(90, 97, 105, .1), 0 0.25rem 0.5rem rgba(90, 97, 105, .12), 0 0.9375rem 1.375rem rgba(90, 97, 105, .1), 0 0.4375rem 2.1875rem rgba(165, 182, 201, .1);
+}
+
+.navbar {
+    text-transform: none;
+}
+
+.main-navbar .navbar {
+    height: 3.75rem;
+}
+
+.main-sidebar .navbar-brand {
+    overflow: hidden;
+    height: 3.75rem;
+    font-size: 1rem;
+}
+
+#contenu>ul {
+    width: 100%;
+}
+
+.navbar-toggler {
+    width: 100%;
+    height: 3.75rem;
+}
+
+.main-navbar .navbar>* {
+    display: flex;
+}
+
+.navbar-light .navbar-brand {
+    font-weight: 700;
+    color: #3d5170;
+}
+
+.main-sidebar .nav-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 3.75rem - 1px);
+}
+
+.nav {
+    font-size: .875rem;
+}
+
+.nav-item {
+    margin-right: 0;
+}
+
+.main-sidebar .nav .nav-item,
+.main-sidebar .nav .nav-link {
+    white-space: nowrap;
+    min-width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    will-change: background-color, box-shadow, color;
+    transition: box-shadow .2s ease, color .2s ease, background-color .2s ease;
+    font-size: .85rem;
+}
+
+.main-sidebar .nav .nav-item .nav-link {
+    border-bottom: 1px solid #e1e5eb;
+    font-weight: 400;
+    color: #3d5170;
+    padding: .9375rem 1.5625rem;
+    background-color: white;
+}
+
+.main-sidebar .nav .nav-item .nav-link.active,
+.main-sidebar .nav .nav-item .nav-link:hover,
+.main-sidebar .nav .nav-item.active,
+.main-sidebar .nav .nav-item:hover {
+    box-shadow: inset 0.1875rem 0 0 black;
+    background-color: #fbfbfb;
+    color: black;
+}
+
+.main-sidebar .nav .nav-item .nav-link i.material-icons {
+    font-size: 1.125rem;
+    top: -1px;
+}
+
+.main-sidebar .nav .nav-item .nav-link i {
+    min-width: 1.25rem;
+    font-size: 90%;
+    text-align: center;
+    vertical-align: middle;
+    will-change: color;
+    transition: color .2s ease;
+    margin-right: .375rem;
+}
+
+i.material-icons {
+    font-size: inherit;
+    position: relative;
+    top: 2px;
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/*  /* Top Navbar */
+
+/*-----------------------------------------------------------------------------------*/
+
+.main-navbar .navbar .user-avatar {
+    max-width: 2.5rem;
+}
+
+.main-navbar .navbar .nav-link {
+    min-width: 10rem;
+}
+
+.main-navbar .navbar .navbar-nav .dropdown-menu {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+}
+
+body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white>nav>ul>li>a {
+    color: #3d5170;
+    font-size: 0.95rem;
+}
+
+body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white>nav>ul>li>a:hover,
+body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white>nav>ul>li>a:focus {
+    color: black;
+}
+
+.dropdown-menu {
+    z-index: 1000;
+    min-width: 10rem;
+    padding: 10px 0;
+    margin: 0 0 0;
+    font-size: 1rem;
+    color: #5a6169;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: .375rem;
+    box-shadow: 0 0.5rem 4rem rgba(0, 0, 0, .11), 0 10px 20px rgba(0, 0, 0, .05), 0 2px 3px rgba(0, 0, 0, .06);
+}
+
+.dropdown-menu-small .dropdown-item {
+    padding: .375rem .875rem;
+    font-size: .813rem;
+}
+
+.dropdown-menu-small {
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, .11), 0 3px 10px rgba(0, 0, 0, .05), 0 2px 3px rgba(0, 0, 0, .06);
+    padding: .25rem 0;
+    font-size: .813rem;
+}
+
+.dropdown-item {
+    padding: .5rem 1.25rem;
+    font-weight: 300;
+    color: #212529;
+    font-size: .9375rem;
+    transition: background-color 250ms cubic-bezier(.27, .01, .38, 1.06), color 250ms cubic-bezier(.27, .01, .38, 1.06);
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/*  /* Main Content */
+
+/*-----------------------------------------------------------------------------------*/
+
+.main-content-container {
+    background-color: #f5f6f8;
+}
+
+.main-content>.main-content-container.container-fluid {
+    min-height: calc(100vh - 7.5rem);
+}
+
+.page-header .page-subtitle {
+    letter-spacing: .125rem;
+    color: #818ea3;
+    font-size: .625rem;
+}
+
+.page-header .page-title {
+    font-size: 1.625rem;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+
+/*-------------------------------*/
+
+/*  /* User Card */
+
+/*-------------------------------*/
+
+body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div>div {
+    background-color: white;
+}
+
+body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div>ul>li.list-group-item.p-4 {
+    border-bottom-left-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+}
+
+body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div>div>div>ul>li>strong {
+    font-weight: 600;
+}
+
+/*-------------------------------*/
+
+/*  /* Update Card */
+
+/*-------------------------------*/
+
+body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div.col-lg-8>div>div {
+    padding: 1rem 1rem;
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+}
+
+.card>.list-group:last-child .list-group-item:last-child {
+    border-bottom-left-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+}
+
+body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div.col-lg-8>div>ul>li>div>div>form>div:nth-child(2)>div:nth-child(1)>div>div>label {
+    height: 2.813rem;
+}
+
+.custom-file-label::after {
+    content: "Choisir un fichier";
+}
+
+#account_description {
+    height: 10rem;
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/*  /* Footer */
+
+/*-----------------------------------------------------------------------------------*/
+
+.main-footer {
+    height: 3.75rem;
+}
+
+body>div.container-fluid>div>div>footer>ul {
+    padding: 0.4rem 1rem 1rem 1rem;
+}
+
+body>div.container-fluid>div>div>footer>ul>li>a {
+    color: #3d5170;
+}
+
+body>div.container-fluid>div>div>footer>ul>li>a:hover,
+body>div.container-fluid>div>div>footer>ul>li>a:focus {
+    color: black;
+}
+
+.copyright {
+    color: #3d5170;
+}

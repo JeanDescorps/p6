@@ -22,12 +22,16 @@ class UserChecker implements UserCheckerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Checking if user is confirmed
+     *
+     * @param UserInterface $user
+     *
+     * @return Exception
      */
     public function checkPostAuth(UserInterface $user)
     {
         if (!$user->getConfirmed()) {
-            throw new AccountUnconfirmedException('Compte non confirmé.');
+            throw new AccountUnconfirmedException('Vous devez valider votre compte avant de pouvoir vous connecter.');
         }
     }
 }

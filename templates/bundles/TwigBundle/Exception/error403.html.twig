@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks - Accès refusé{% endblock %}
+
+{% block body %}
+    <div class="container exception">
+        <!-- Start Logo -->
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <img class="img-fluid mb-5" src="/images/403.png" alt="Login Logo">
+            </div>               
+        </div>
+        <!-- End Logo -->
+
+        <!-- Start Error / Redirection -->
+        <div class="row justify-content-center">         
+            <div class="col-md-6">
+                <div class="mb-5 text-center">
+                    <h1>Vous ne pouvez pas accéder à cette page.</h1>
+                    <p>Essayer de vous inscrire ou de vous connecter puis ré-éssayer.</p>
+                </div>              
+                <div class="text-center mb-5">
+                    <div class="row justify-content-center">
+                        <a href="" class="btn btn-success button-exception m-1">Accueil</a>
+                        <a href="" class="btn btn-success button-exception m-1">Tricks</a>
+                        <a href="" class="btn btn-success button-exception m-1">Inscription</a>
+                        <a href="" class="btn btn-success button-exception m-1">Connexion</a>
+                    </div>                  
+                </div>
+            </div>
+        </div>
+        <!-- End Error / Redirection -->
+    </div>
+{% endblock %}
