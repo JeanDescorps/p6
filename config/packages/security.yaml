@@ -1,4 +1,6 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
     encoders:
         App\Entity\User:
             algorithm: argon2i
@@ -20,6 +22,7 @@ security:
             form_login:
                 login_path: account_login
                 check_path: account_login
+                default_target_path: account_profile
                 csrf_token_generator: security.csrf.token_manager
             logout:
                 path: account_logout

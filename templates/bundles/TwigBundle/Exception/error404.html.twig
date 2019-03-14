@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks - Page non trouvée{% endblock %}
+
+{% block body %}
+    <div class="container exception">
+        <!-- Start Logo -->
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <img class="img-fluid mb-5" src="/images/404.png" alt="Login Logo">
+            </div>               
+        </div>
+        <!-- End Logo -->
+
+        <!-- Start Error / Redirection -->
+        <div class="row justify-content-center">         
+            <div class="col-md-6">
+                <h1 class="mb-5 text-center">Désolé, la page demandée n'existe pas.</h1>
+                <div class="text-center mb-5">
+                    <div class="row justify-content-center">
+                        <a href="" class="btn btn-success button-exception m-1">Accueil</a>
+                        <a href="" class="btn btn-success button-exception m-1">Tricks</a>
+                        <a href="" class="btn btn-success button-exception m-1">Inscription</a>
+                        <a href="" class="btn btn-success button-exception m-1">Connexion</a>
+                    </div>                  
+                </div>
+            </div>
+        </div>
+        <!-- End Error / Redirection -->
+    </div>
+{% endblock %}

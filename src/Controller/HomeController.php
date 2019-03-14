@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\CommentType;
+use App\Repository\CommentRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\VideoRepository;
@@ -41,14 +44,19 @@ class HomeController extends AbstractController
      *
      * @return Response
      */
-    public function show(Trick $trick, ImageRepository $repo_image, VideoRepository $repo_video)
+    public function show(Trick $trick, ImageRepository $repo_image, VideoRepository $repo_video, CommentRepository $repo_comment)
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
         $images = $repo_image->findBy(array('trick' => $trick->getId()));
         $videos = $repo_video->findBy(array('trick' => $trick->getId()));
+        $comments = $repo_comment->findBy(array('trick' => $trick->getId()));
         return $this->render('home/show.html.twig', [
             'trick' => $trick,
             'images' => $images,
             'videos' => $videos,
+            'comments' => $comments,
+            'form' => $form->createView(),
         ]);
     }
 }

@@ -1,0 +1,85 @@
+{% extends 'profile-base.html.twig' %}
+
+{% block subtitle %}Vue d'ensemble{% endblock %}
+{% block mainTitle %}Profil Utilisateur{% endblock %}
+
+{% block body %}
+    <!-- User Card -->
+    <div class="col-lg-4">
+        <div class="card card-small mb-4 pt-3">
+            <div class="card-header border-bottom text-center">
+                <div class="mb-3 mx-auto">
+                    <img class="rounded-circle" src="/images/{{ app.user.avatar }}" alt="Avatar" width="110"> 
+                </div>
+                <h4 class="mb-0">{{ app.user.username }}</h4>
+                <span class="text-muted d-block mb-2">{{ app.user.email }}</span>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item px-4">
+                    <strong class="text-muted d-block mb-2">Website</strong>
+                    <span>
+                        {% if app.user.website %}
+                            {{ app.user.website }}
+                        {% else %}
+                            Votre website
+                        {% endif %}
+                    </span>                      
+                </li>
+                <li class="list-group-item p-4">
+                    <strong class="text-muted d-block mb-2">Description</strong>
+                    <span>
+                        {% if app.user.description %}
+                            {{ app.user.description }}
+                        {% else %}
+                            Décrivez-vous en quelques lignes.
+                        {% endif %}
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- End User Card -->
+
+    <!-- Start Update Card -->
+    <div class="col-lg-8">
+        <div class="card card-small mb-4">
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Détails de votre compte</h6>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item p-3">
+                    <div class="row">
+                        <div class="col">
+                            {{ form_start(form) }}
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        {{ form_row(form.username) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        {{ form_row(form.email) }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        {{ form_row(form.avatar) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        {{ form_row(form.website) }}
+                                    </div>
+                                </div>                              
+                                <div class="form-group">
+                                    {{ form_row(form.description) }}
+                                </div>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                <div class="form-group mt-4 text-center">
+                                    <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- End Update Card -->
+{% endblock %}

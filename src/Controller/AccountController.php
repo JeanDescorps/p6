@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AccountType;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +32,7 @@ class AccountController extends AbstractController
         $username = $utils->getLastUsername();
         return $this->render('account/login.html.twig', [
             'username' => $username,
-            'error' => $error ? $error->getMessageKey() : null,
+            'error' => $error ? $error->getMessage() : null,
         ]);
     }
 
@@ -117,7 +119,6 @@ class AccountController extends AbstractController
             if ($user->getConfirmationToken() === $token) {
                 $user->setConfirmationToken(null)
                     ->setConfirmed(true);
-                $manager->persist($user);
                 $manager->flush();
                 $this->addFlash('success', 'Votre compte est validé ! Connectez-vous !');
                 return $this->redirectToRoute('account_login');
@@ -127,5 +128,70 @@ class AccountController extends AbstractController
         } else {
             throw new \Exception('Cet utilisateur n\'existe pas.');
         }
+    }
+
+    /**
+     * Display profile
+     *
+     * @Route("/profile", name="account_profile")
+     *
+     * @Security("is_granted('ROLE_USER')")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function profile(Request $request, ObjectManager $manager)
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(AccountType::class, $user, array('user' => $this->getUser()));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->get('avatar')->getData() !== $user->getAvatar()) {
+
+                $avatar = $form->get('avatar')->getData();
+                $avatar_extension = $avatar->guessExtension();
+                $valid_extension = array('jpg', 'jpeg', 'gif', 'png');
+
+                if (in_array($avatar_extension, $valid_extension)) {
+
+                    if ($avatar->getSize() < 500000) {
+
+                        $avatarName = $this->generateUniqueFileName() . '.' . $avatar->guessExtension();
+                        $avatar->move(
+                            $this->getParameter('images_directory'),
+                            $avatarName
+                        );
+                        $user->setAvatar($avatarName);
+
+                    } else {
+                        $this->addFlash('danger', 'Votre avatar ne doit pas excéder 500 Ko.');
+                        return $this->redirectToRoute('account_profile');
+                    }
+                } else {
+                    $this->addFlash('danger', 'Votre avatar doit être au format jpg, jpeg, gif ou png.');
+                    return $this->redirectToRoute('account_profile');
+                }
+            }
+
+            $manager->flush();
+            $this->addFlash('success', 'Votre compte a été mis à jour.');
+            return $this->redirectToRoute('account_profile');
+        }
+        return $this->render('account/profile.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Generate unique file name
+     *
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
     }
 }
