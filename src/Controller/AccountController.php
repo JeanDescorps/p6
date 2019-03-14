@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\PasswordUpdate;
 use App\Entity\User;
 use App\Form\AccountType;
+use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -89,11 +91,11 @@ class AccountController extends AbstractController
                     'text/html'
                 );
             $mailer->send($message);
-            $success = 'Votre compte a bien été crée, un email vous a été envoyé pour le confirmer.';
+            $this->addFlash('success', 'Votre compte a bien été crée, un email vous a été envoyé pour le confirmer.');
+            return $this->redirectToRoute('account_register');
         }
         return $this->render('account/register.html.twig', [
             'form' => $form->createView(),
-            'success' => $success = isset($success) ? $success : null,
         ]);
     }
 
@@ -185,6 +187,35 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('account_profile');
         }
         return $this->render('account/profile.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Update password
+     *
+     * @Route("/update-password", name="account_password")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $manager)
+    {
+        $passwordUpdate = new PasswordUpdate();
+        $user = $this->getUser();
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $passwordUpdate->getNewPassword();
+            $password = $encoder->encodePassword($user, $newPassword);
+            $user->setPassword($password);
+            $manager->persist($user);
+            $manager->flush();
+            $this->addFlash('success', 'Votre mot de passe a été mis à jour.');
+            return $this->redirectToRoute('account_password');
+        }
+        return $this->render('account/update-password.html.twig', [
             'form' => $form->createView(),
         ]);
     }
