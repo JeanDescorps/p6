@@ -131,7 +131,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Display profile
+     * Display profile and update profile form
      *
      * @Route("/profile", name="account_profile")
      *
@@ -144,6 +144,7 @@ class AccountController extends AbstractController
     public function profile(Request $request, ObjectManager $manager)
     {
         $user = $this->getUser();
+        $oldAvatar = $user->getAvatar();
         $form = $this->createForm(AccountType::class, $user, array('user' => $this->getUser()));
         $form->handleRequest($request);
 
@@ -151,16 +152,16 @@ class AccountController extends AbstractController
 
             if ($form->get('avatar')->getData() !== $user->getAvatar()) {
 
-                $avatar = $form->get('avatar')->getData();
-                $avatar_extension = $avatar->guessExtension();
-                $valid_extension = array('jpg', 'jpeg', 'gif', 'png');
+                $newAvatar = $form->get('avatar')->getData();
+                $avatarExtension = $newAvatar->guessExtension();
+                $validExtension = array('jpg', 'jpeg', 'gif', 'png');
 
-                if (in_array($avatar_extension, $valid_extension)) {
+                if (in_array($avatarExtension, $validExtension)) {
 
-                    if ($avatar->getSize() < 500000) {
+                    if ($newAvatar->getSize() < 500000) {
 
-                        $avatarName = $this->generateUniqueFileName() . '.' . $avatar->guessExtension();
-                        $avatar->move(
+                        $avatarName = $this->generateUniqueFileName() . '.' . $newAvatar->guessExtension();
+                        $newAvatar->move(
                             $this->getParameter('images_directory'),
                             $avatarName
                         );
@@ -177,6 +178,9 @@ class AccountController extends AbstractController
             }
 
             $manager->flush();
+            if ($oldAvatar !== 'default-avatar.jpg') {
+                unlink($this->getParameter('images_directory') . '/' . $oldAvatar);
+            }
             $this->addFlash('success', 'Votre compte a été mis à jour.');
             return $this->redirectToRoute('account_profile');
         }
