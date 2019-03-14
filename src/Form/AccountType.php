@@ -21,11 +21,9 @@ class AccountType extends AbstractType
         $builder
             ->add('username', TextType::class, array(
                 'label' => 'Nom d\'utilisateur',
-                'required' => false,
             ))
             ->add('email', EmailType::class, array(
                 'label' => 'Email',
-                'required' => false,
             ))
             ->add('avatar', FileType::class, array(
                 'label' => 'Avatar',
@@ -40,9 +38,6 @@ class AccountType extends AbstractType
             ->add('description', TextareaType::class, array(
                 'label' => 'Description',
                 'required' => false,
-                'attr' => [
-                    'row' => '10',
-                ],
             ))
         ;
     }

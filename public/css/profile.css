@@ -1,5 +1,19 @@
 /*-----------------------------------------------------------------------------------*/
 
+/*  /* Global Rules */
+
+/*-----------------------------------------------------------------------------------*/
+
+h4 {
+    font-weight: 400;
+}
+
+h6 {
+    font-weight: 500;
+}
+
+/*-----------------------------------------------------------------------------------*/
+
 /*  /* Navbar Aside */
 
 /*-----------------------------------------------------------------------------------*/
@@ -118,6 +132,10 @@ i.material-icons {
 /*  /* Top Navbar */
 
 /*-----------------------------------------------------------------------------------*/
+
+body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white>nav>ul>li>a>span {
+    font-weight: 500;
+}
 
 .main-navbar .navbar .user-avatar {
     max-width: 2.5rem;
@@ -279,4 +297,10 @@ body>div.container-fluid>div>div>footer>ul>li>a:focus {
 
 .copyright {
     color: #3d5170;
+}
+
+body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div>div {
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+    padding: 1rem 1rem;
 }

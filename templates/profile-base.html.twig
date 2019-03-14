@@ -56,9 +56,15 @@
                         <div class="collapse navbar-collapse" id="contenu">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="">
+                                    <a class="nav-link active" href="{{ path('account_profile') }}">
                                         <i class="material-icons">edit</i>
                                         <span>Votre Profil</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ path('account_password') }}">
+                                        <i class="material-icons">update</i>
+                                        <span>Votre mot de passe</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
