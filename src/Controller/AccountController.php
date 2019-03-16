@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\PasswordForgot;
+use App\Entity\PasswordReset;
 use App\Entity\PasswordUpdate;
 use App\Entity\User;
 use App\Form\AccountType;
 use App\Form\PasswordForgotType;
+use App\Form\PasswordResetType;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
@@ -264,12 +266,70 @@ class AccountController extends AbstractController
                     );
                 $mailer->send($message);
                 $this->addFlash('success', 'Un email vient de vous être envoyé pour réinitialiser votre mot de passe !');
+                return $this->redirectToRoute('account_forgot');
             } else {
                 $this->addFlash('danger', 'Cet utilisateur n\'existe pas.');
                 return $this->redirectToRoute('account_forgot');
             }
         }
         return $this->render('account/forgot-password.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Reset password (forgot)
+     *
+     * @Route("/reset-password", name="account_reset")
+     *
+     * @return Response
+     */
+    public function resetPassword(Request $request, UserRepository $repo, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    {
+        $request = Request::createFromGlobals();
+        if ($request->query->get('id')) {
+            $id = $request->query->get('id');
+        } else {
+            throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+        }
+        if ($request->query->get('token')) {
+            $token = $request->query->get('token');
+        } else {
+            throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+        }
+
+        $passwordReset = new PasswordReset();
+        $user = new User();
+        $user = $repo->findOneBy(array('id' => $id));
+
+        $form = $this->createForm(PasswordResetType::class, $passwordReset);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($user->getId()) {
+                if ($user->getEmail() === $passwordReset->getEmail()) {
+                    if ($user->getConfirmationToken() === $token) {
+                        $newPassword = $passwordReset->getNewPassword();
+                        $password = $encoder->encodePassword($user, $newPassword);
+                        $user->setConfirmationToken(null)
+                            ->setPassword($password);
+                        $manager->persist($user);
+                        $manager->flush();
+                        $this->addFlash('success', 'Votre mot de passe a été mis à jour ! Connectez-vous !');
+                        return $this->redirectToRoute('account_login');
+                    } else {
+                        throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+                    }
+                } else {
+                    $this->addFlash('success', 'Cette adresse email n\'est pas celle associée à votre compte !');
+                }
+            } else {
+                throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+            }
+        }
+
+        return $this->render('account/reset-password.html.twig', [
             'form' => $form->createView(),
         ]);
     }
