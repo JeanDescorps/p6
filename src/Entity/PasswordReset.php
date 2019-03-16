@@ -2,28 +2,24 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class PasswordUpdate
+class PasswordReset
 {
+
     /**
      * @Assert\NotBlank(
      *      message = "Ce champ est requis !"
      * )
-     * @SecurityAssert\UserPassword(
-     *     message = "Ce n'est pas votre mot de passe actuel."
+     * @Assert\Email(
+     *      message = "Veuillez entrer un email valide !"
+     * )
+     * @Assert\Length(
+     *      max = 254,
+     *      maxMessage = "Votre email ne peut pas contenir plus que {{ limit }} caractères !"
      * )
      */
-    private $oldPassword;
-
-    /**
-     * @Assert\EqualTo(
-     *      propertyPath = "newpassword",
-     *      message = "Le mot de passe n'est pas identique."
-     * )
-     */
-    private $confirmPassword;
+    private $email;
 
     /**
      * @Assert\NotBlank(
@@ -43,26 +39,22 @@ class PasswordUpdate
      */
     private $newPassword;
 
-    public function getOldPassword(): ?string
+    /**
+     * @Assert\EqualTo(
+     *      propertyPath = "newPassword",
+     *      message = "Le mot de passe n'est pas identique."
+     * )
+     */
+    private $confirmPassword;
+
+    public function getEmail(): ?string
     {
-        return $this->oldPassword;
+        return $this->email;
     }
 
-    public function setOldPassword(string $oldPassword): self
+    public function setEmail(string $email): self
     {
-        $this->oldPassword = $oldPassword;
-
-        return $this;
-    }
-
-    public function getConfirmPassword(): ?string
-    {
-        return $this->confirmPassword;
-    }
-
-    public function setConfirmPassword(string $confirmPassword): self
-    {
-        $this->confirmPassword = $confirmPassword;
+        $this->email = $email;
 
         return $this;
     }
@@ -75,6 +67,18 @@ class PasswordUpdate
     public function setNewPassword(string $newPassword): self
     {
         $this->newPassword = $newPassword;
+
+        return $this;
+    }
+
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirmPassword;
+    }
+
+    public function setConfirmPassword(string $confirmPassword): self
+    {
+        $this->confirmPassword = $confirmPassword;
 
         return $this;
     }
