@@ -26,7 +26,9 @@ class UserChecker implements UserCheckerInterface
      *
      * @param UserInterface $user
      *
-     * @return Exception
+     * @return void
+     *
+     * @throws AccountUnconfirmedException
      */
     public function checkPostAuth(UserInterface $user)
     {

@@ -6,7 +6,7 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
         <!-- Title -->
-        <title>{% block title %}SnowTricks - Utilisateur{% endblock %}</title>
+        <title>{% block title %}SnowTricks - Profil Utilisateur{% endblock %}</title>
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
@@ -56,29 +56,43 @@
                         <div class="collapse navbar-collapse" id="contenu">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="{{ path('account_profile') }}">
+                                    <a class="nav-link {{ app.request.attributes.get('_route') == 'account_profile' ? 'active' }}" href="{{ path('account_profile') }}">
                                         <i class="material-icons">edit</i>
                                         <span>Votre Profil</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="{{ path('account_password') }}">
+                                    <a class="nav-link {{ app.request.attributes.get('_route') == 'account_password' ? 'active' }}" href="{{ path('account_password') }}">
                                         <i class="material-icons">update</i>
-                                        <span>Votre mot de passe</span>
+                                        <span>Votre Mot de Passe</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">
-                                        <i class="material-icons">note_add</i>
+                                    <a class="nav-link {{ app.request.attributes.get('_route') == 'trick_user' ? 'active' }}" href="{{ path('trick_user') }}">
+                                        <i class="material-icons">vertical_split</i>
                                         <span>Vos Tricks</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link " href="">
+                                    <a class="nav-link {{ app.request.attributes.get('_route') == 'trick_add' ? 'active' }}" href="{{ path('trick_add') }}">
+                                        <i class="material-icons">note_add</i>
+                                        <span>Ajouter un trick</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ app.request.attributes.get('_route') == 'comment_user' ? 'active' }}" href="{{ path('comment_user') }}">
                                         <i class="material-icons">insert_comment</i>
                                         <span>Vos Commentaires</span>
                                     </a>
                                 </li>
+                                {% if app.request.attributes.get('_route') == 'comment_update' %}
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="">
+                                            <i class="material-icons">note</i>
+                                            <span>Modification de commentaire</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
                                 <li class="nav-item d-lg-none">
                                     <a class="nav-link text-danger" href="{{ path('account_logout') }}">
                                         <i class="material-icons text-danger">&#xE879;</i>
@@ -98,15 +112,15 @@
                             <ul class="navbar-nav border-left flex-row-reverse">                              
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <img class="user-avatar rounded-circle mr-2" src="/images/{{ app.user.avatar }}" alt="Avatar">
-                                        <span>{{ app.user.username }}</span>
+                                        <img class="user-avatar rounded-circle mr-2" src="/images/{{ user.u_avatar is defined ? user.u_avatar : app.user.avatar }}" alt="Avatar">
+                                        <span>{{ user.u_username is defined ? user.u_username: app.user.username }}</span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-small">
-                                        <a class="dropdown-item" href="">
+                                        <a class="dropdown-item" href="{{ path('account_profile') }}">
                                             <i class="material-icons">&#xE7FD;</i> Profil</a>
-                                        <a class="dropdown-item" href="">
+                                        <a class="dropdown-item" href="{{ path('trick_user') }}">
                                             <i class="material-icons">note_add</i> Vos Tricks</a>
-                                        <a class="dropdown-item" href="">
+                                        <a class="dropdown-item" href="{{ path('comment_user') }}">
                                             <i class="material-icons">insert_comment</i> Vos Commentaires</a>
                                         <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger" href="{{ path('account_logout') }}">
@@ -162,6 +176,11 @@
                         </div>
                         <!-- End Body -->
 
+                        <!-- Start Paging -->
+                        {% block paging %}
+                        {% endblock paging %}
+                        <!-- End Paging -->
+                        
                     </div>
 
                     <!-- Start Footer -->
@@ -182,8 +201,13 @@
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Profil</a>
+                                    <a class="nav-link" href="{{ path('account_profile') }}">Profil</a>
                                 </li>
+                                {% if app.user.role == 'ROLE_ADMIN' %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('admin_dashboard') }}">Administration</a>
+                                    </li>
+                                {% endif %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('account_logout') }}">Déconnexion</a>
                                 </li>
@@ -196,6 +220,12 @@
                 </div>
             </div>
         </div>
+
+        <!-- Delete Comment Modal -->
+        {{ include('/modals/delete-comment.html.twig') }}
+
+        <!-- Delete Trick Modal -->
+        {{ include('/modals/delete-trick.html.twig') }}
 
         <!-- Jquery -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

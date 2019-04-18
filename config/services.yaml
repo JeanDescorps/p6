@@ -6,6 +6,9 @@
 parameters:
     locale: 'fr'
     images_directory: '%kernel.project_dir%/public/images/'
+    trick_limit: 8
+    comment_limit: 12
+    user_limit: 3
 
 services:
     # default configuration for services in *this* file

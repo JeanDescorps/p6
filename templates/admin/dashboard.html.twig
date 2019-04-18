@@ -1,0 +1,41 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block subtitle %}Vue d'ensemble{% endblock %}
+{% block mainTitle %}Tableau de bord{% endblock %}
+
+{% block body %}
+    {% for trick in tricks %}
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card card-small card-post card-post--1">
+                <div class="card-post__image" style="background-image: url('/images/{{ trick.image }}');">
+                    <div class="card-post__author d-flex">
+                        <a href="" target="_blank" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('/images/{{ trick.user.avatar }}');">Ecrit par {{ trick.user.username }}</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="text-fiord-blue" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.title }}</a>
+                    </h5>
+                    <p class="card-text d-inline-block mb-3">{{ trick.lead }}</p><br>
+                    <span class="text-muted">{{ trick.createdAt | date('d F Y') }}</span>
+                    <div class="blog-comments__actions mt-3">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" onclick="window.open('{{ path('trick_show', {'id': trick.id}) }}')" target="_blank" class="btn btn-white">
+                            <span class="text-success">
+                            <i class="material-icons">arrow_right_alt</i>
+                            </span> Consulter </button>
+                            <button type="button" class="btn btn-white" data-toggle="modal" data-target="#deleteModal" data-href="">
+                            <span class="text-danger">
+                            <i class="material-icons">clear</i>
+                            </span> Supprimer </button>
+                            <button type="button" onclick="window.location.href = '';" class="btn btn-white">
+                            <span class="text-light">
+                            <i class="material-icons">more_vert</i>
+                            </span> Modifier </button>
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+        </div>        
+    {% endfor %}
+{% endblock %}

@@ -5,9 +5,17 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ *      fields={"title"},
+ *      message="Ce trick existe déjà."
+ * )
  */
 class Trick
 {
@@ -20,6 +28,15 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(
+     *      message = "Ce champ est requis !"
+     * )
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "Votre titre de trick doit contenir au moins {{ limit }} caractères !",
+     *      maxMessage = "Votre titre de trick ne peut pas contenir plus que {{ limit }} caractères !"
+     * )
      */
     private $title;
 
@@ -30,6 +47,13 @@ class Trick
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *      message = "Ce champ est requis !"
+     * )
+     * @Assert\Length(
+     *      max = 10000,
+     *      maxMessage = "La description du trick ne peut pas contenir plus que {{ limit }} caractères !"
+     * )
      */
     private $content;
 
@@ -45,12 +69,13 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $videos;
 
@@ -67,8 +92,27 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=500)
+     * @Assert\NotBlank(
+     *      message = "Ce champ est requis !"
+     * )
+     * @Assert\Length(
+     *      max = 300,
+     *      maxMessage = "Le chapô du trick ne peut pas contenir plus que {{ limit }} caractères !"
+     * )
      */
-    private $Lead;
+    private $lead;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @Assert\Image()
+     */
+    private $file;
+
+    private $path;
 
     public function __construct()
     {
@@ -249,13 +293,78 @@ class Trick
 
     public function getLead(): ?string
     {
-        return $this->Lead;
+        return $this->lead;
     }
 
-    public function setLead(string $Lead): self
+    public function setLead(string $lead): self
     {
-        $this->Lead = $Lead;
+        $this->lead = $lead;
 
         return $this;
     }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PreFlush()
+     */
+    public function handleFile()
+    {
+        if ($this->file === null) {
+            return;
+        }
+
+        // Delete image from the server if update
+        if ($this->id && $this->image !== 'default-trick.jpg') {
+            unlink($this->path . '/' . $this->image);
+        }
+
+        // Image name creation
+        $name = $this->createName();
+        // Setting name
+        $this->setImage($name);
+        // Moving image into the image repository
+        $this->file->move($this->path, $name);
+
+    }
+
+    private function createName(): string
+    {
+        return md5(uniqid()) . '.' . $this->file->guessClientExtension();
+    }
+
 }

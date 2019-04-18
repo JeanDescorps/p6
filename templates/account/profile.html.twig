@@ -9,17 +9,17 @@
         <div class="card card-small mb-4 pt-3">
             <div class="card-header border-bottom text-center">
                 <div class="mb-3 mx-auto">
-                    <img class="rounded-circle" src="/images/{{ app.user.avatar }}" alt="Avatar" width="110"> 
+                    <img class="rounded-circle" src="/images/{{ user.u_avatar }}" alt="Avatar" width="110"> 
                 </div>
-                <h4 class="mb-0">{{ app.user.username }}</h4>
-                <span class="text-muted d-block mb-2">{{ app.user.email }}</span>
+                <h4 class="mb-0">{{ user.u_username }}</h4>
+                <span class="text-muted d-block mb-2">{{ user.u_email }}</span>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item px-4">
                     <strong class="text-muted d-block mb-2">Website</strong>
                     <span>
-                        {% if app.user.website %}
-                            {{ app.user.website }}
+                        {% if user.u_website %}
+                            {{ user.u_website }}
                         {% else %}
                             Votre website
                         {% endif %}
@@ -28,8 +28,8 @@
                 <li class="list-group-item p-4">
                     <strong class="text-muted d-block mb-2">Description</strong>
                     <span>
-                        {% if app.user.description %}
-                            {{ app.user.description }}
+                        {% if user.u_description %}
+                            {{ user.u_description }}
                         {% else %}
                             Décrivez-vous en quelques lignes.
                         {% endif %}

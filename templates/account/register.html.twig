@@ -17,11 +17,11 @@
         <div class="row justify-content-center">         
             <div class="col-md-6">
                 <h1 class="mb-5 text-center">Inscrivez-vous</h1>
-                {% if success %}
+                {% for message in app.flashes('success') %}
                     <div class="alert alert-success">
-                        {{ success }}
+                        {{ message }}
                     </div>
-                {% endif %}   
+                {% endfor %}
                 {{ form_start(form) }}
                     <div class="form-group">
                         {{ form_row(form.username) }}

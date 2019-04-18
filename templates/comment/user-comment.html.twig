@@ -1,0 +1,63 @@
+{% extends 'profile-base.html.twig' %}
+
+{% block subtitle %}Vue d'ensemble{% endblock %}
+{% block mainTitle %}Vos commentaires{% endblock %}
+
+{% block body %}
+    <div class="col mb-4">
+        <div class="card card-small blog-comments">
+            <div class="card-header">
+            	<h6 class="m-0">Vos commentaires</h6>
+            </div>
+            <!-- Start Comments -->
+            <div class="card-body p-0 row">           
+                {% for comment in paging.data %}
+                    <div class="blog-comments__item d-flex p-3 col-lg-4 col-md-12">
+                        <div class="blog-comments__avatar mr-3">
+                            <img src="/images/{{ comment.user.avatar }}" alt="{{ comment.user.username }}" /> 
+                        </div>                    
+                        <div class="blog-comments__content">
+                            <div class="blog-comments__meta text-muted">
+                                <a href="#">{{ comment.user.username }}</a> dans
+                                <a href="/trick/{{ comment.trick.id }}#{{ comment.id }}" target="_blank">{{ comment.trick.title }}</a>
+                                <span class="text-muted">- il y a 
+                                    {% set difference = date(comment.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                                    {% set leftDays = difference.days %}
+                                    {% if leftDays == 1 %}
+                                        1 jour
+                                    {% else %}
+                                        {{ leftDays }} jours
+                                    {% endif %}
+                                </span>
+                            </div>
+                            {% set consult = " <a href=comment/edit/" ~ comment.id ~ ">...</a>" %}
+                            <p class="m-0 my-1 mb-2 text-muted text-justify">
+                                {{ comment.content|length > 50 ? comment.content|slice(0, 50) : comment.content }}{{ comment.content|length > 50 ? consult|raw }}
+                            </p>
+                            <div class="blog-comments__actions">
+                                <div class="btn-group btn-group-sm">
+                                    <button type="button" onclick="window.open('/trick/{{ comment.trick.id }}#{{ comment.id }}')" target="_blank" class="btn btn-white">
+                                    <span class="text-success">
+                                    <i class="material-icons">arrow_right_alt</i>
+                                    </span> Consulter </button>
+                                    <button type="button" class="btn btn-white" data-toggle="modal" data-target="#deleteModal" data-href="{{ path('comment_delete', {'id': comment.id}) }}">
+                                    <span class="text-danger">
+                                    <i class="material-icons">clear</i>
+                                    </span> Supprimer </button>
+                                    <button type="button" onclick="window.location.href = '{{ path('comment_update', {'id': comment.id}) }}';" class="btn btn-white">
+                                    <span class="text-light">
+                                    <i class="material-icons">more_vert</i>
+                                    </span> Modifier </button>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- End Comments -->
+            <div class="card-footer paging">
+                {% include('/paging/paging.html.twig') with {'route' : 'comment_user'} %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

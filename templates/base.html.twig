@@ -18,6 +18,9 @@
         <!-- FontAwesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+        <!--Material Icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <!-- Main StyleSheet -->
         <link rel="stylesheet" href="/css/style.css">
 
@@ -55,6 +58,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('account_profile') }}">Profil</a>
                         </li>
+                        {% if app.user.role == 'ROLE_ADMIN' %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('admin_dashboard') }}">Administration</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('account_logout') }}">Déconnexion</a>
                         </li>
@@ -69,6 +77,12 @@
             <p>© COPYRIGHT JEAN DESCORPS</p>
         </footer>
         <!-- End Footer -->
+
+        <!-- Delete Comment Modal -->
+        {{ include('/modals/delete-comment.html.twig') }}
+
+        <!-- Delete Trick Modal -->
+        {{ include('/modals/delete-trick.html.twig') }}
 
         <!-- Jquery -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

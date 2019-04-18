@@ -24,9 +24,9 @@
                         <a href="{{ path('trick_show', {'id': trick.id}) }}"><img class="card-img-top home" src="/images/{{ trick.image }}" alt="Trick"></a>
                         <div class="card-body test">
                             <a class="btn btn-outline-info btn-sm trick-link" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.title }}</a>
-                            {% if (app.user) and (app.user.id == trick.user.id) %}
-                                <a class="float-right change-link ml-3 mr-3 pt-2" href=""><i class="fas fa-pen fa-2x"></i></a>
-                                <a class="float-right change-link ml-2 pt-2" href=""><i class="fas fa-trash-alt fa-2x"></i></a>                          
+                            {% if (app.user) and ((app.user.id == trick.user.id) or (app.user.role == 'ROLE_ADMIN')) %}
+                                <a class="float-right change-link ml-3 mr-3 pt-2" href="{{ path('trick_edit', {'id': trick.id}) }}"><i class="fas fa-pen fa-2x"></i></a>
+                                <a class="float-right change-link ml-2 pt-2" data-toggle="modal" data-target="#deleteTrickModal" data-href="{{ path('trick_delete', {'id': trick.id}) }}"><i class="fas fa-trash-alt fa-2x text-info"></i></a>
                             {% endif %}                      
                         </div>
                     </div>               

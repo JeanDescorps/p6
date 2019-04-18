@@ -226,13 +226,81 @@ body>div.container.mt-5>div>div>div.card.mt-5 {
 }
 
 .padDiv {
-    padding: 30px 20px;
+    padding: 30px 35px;
 }
 
 .cmt {
     background: #fff;
     border-radius: 0.625rem;
     box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px rgba(90, 97, 105, 0.06), 0 7px 70px rgba(90, 97, 105, 0.1);
+}
+
+body>div.container.mt-5>div>div>div.col-md-12.px-0>div>p {
+    margin: 0;
+}
+
+#comment_content {
+    height: 8rem;
+}
+
+h6 {
+    font-weight: 500;
+}
+
+#comment-block>div {
+    padding-bottom: 20px;
+}
+
+.entry-comments-item {
+    margin-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.entry-comments-avatar {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.entry-comments-body {
+    padding-left: 86px;
+}
+
+.entry-comments-author {
+    font-size: 16px;
+    color: #292929;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+
+.comment-content {
+    margin-top: 25px;
+    margin-bottom: 0;
+    padding: 0;
+    font-size: 15px;
+    color: #999999;
+    line-height: 28px;
+}
+
+.comment-date {
+    font-size: 13px;
+}
+
+.comments-anchor {
+    display: block;
+    height: 115px;
+    height: 98.75px;
+    margin-top: -98.75px;
+}
+
+.comment-anchor {
+    display: block;
+    height: 115px;
+    height: 98.75px;
+    margin-top: -98.75px;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -242,7 +310,7 @@ body>div.container.mt-5>div>div>div.card.mt-5 {
 /*-----------------------------------------------------------------------------------*/
 
 .login {
-    margin-top: 13rem;
+    margin-top: 11rem;
     margin-bottom: 3rem;
 }
 
@@ -292,4 +360,113 @@ body>div.container.mt-5>div>div>div.card.mt-5 {
 
 .button-exception {
     min-width: 137px;
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/*  /* Tricks update */
+
+/*-----------------------------------------------------------------------------------*/
+
+.update-trick {
+    margin-top: 8rem;
+}
+
+#trick_content {
+    height: 10rem;
+}
+
+#trick_category {
+    height: 2.813rem;
+}
+
+body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div>ul>li>div>div>form>div:nth-child(3)>div {
+    margin-bottom: 2.5rem;
+}
+
+.block-image>div.col-md-6>div {
+    height: 45px;
+}
+
+#trick_images>fieldset {
+    margin: 0;
+}
+
+#trick_videos>fieldset {
+    margin: 0;
+}
+
+.custom-file-label::after {
+    content: "Choisir un fichier";
+}
+
+.card>.list-group:last-child .list-group-item:last-child {
+    border-bottom-right-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
+}
+
+.custom-file-label {
+    text-align: left;
+}
+
+.btn-trick {
+    height: 45px;
+    line-height: 1rem;
+    font-size: 36px;
+}
+
+.btn.btn-secondary.btn-trick {
+    padding-top: 10px;
+    padding-left: 10.5px;
+    padding-right: 10.5px;
+    border: none;
+}
+
+.img-trick-principale {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 2rem;
+    border-radius: 0.625rem;
+}
+
+.img-trick {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    border-radius: 0.625rem;
+}
+
+p.collection-head {
+    font-weight: 600;
+    margin-bottom: 1.3rem;
+}
+
+p.collection-head.first {
+    margin-top: 2rem;
+}
+
+/*.btn.btn-outline-info.trick {
+    margin-top: .6rem;
+}*/
+
+.iframe-trick {
+    width: 100%;
+    min-height: 20rem;
+    margin-bottom: 1rem;
+
+    margin-top: 1.5rem;
+    border: none;
+}
+
+.counter-image,
+.counter-video {
+    font-size: 20px;
+    font-weight: bolder;
+    vertical-align: middle;
+    margin-left: 1rem;
+    padding: 0.7rem;
+    color: black;
+    border: 2px solid #d9534f;
+    border-radius: 0.625rem;
 }

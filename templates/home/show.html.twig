@@ -4,9 +4,18 @@
 
 {% block body %}
     <!-- Start Trick -->
-    <div class="container mt-5">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-10 col-md-offset-1 mt-5 mb-4">              
+    <div class="container mt-5">  
+        <div class="row justify-content-center mt-5">          
+            <div class="col-md-10 col-md-offset-1 mt-5 mb-4"> 
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show mb-0 mt-1" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <i class="fa fa-check mx-2"></i>
+                        <strong>{{ message }}</strong> 
+                    </div>
+                {% endfor %}             
                 <div class="card mt-5">
                     <img class="card-img-top" src="/images/{{ trick.image }}" alt="Trick">
                     <div class="card-body">
@@ -21,7 +30,7 @@
                                 Catégorie : {{ trick.category.title }}
                             </li> |
                             <li class="list-inline-item">
-                                {{ trick.comments | length }} commentaires
+                                <a href="#comments-block">{{ trick.comments | length }} commentaires</a>
                             </li>
                         </ul>
                         <hr>
@@ -41,7 +50,7 @@
                                         <div class="carousel-inner enlarge">
                                             {% for image in images %}
                                                 <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
-                                                    <img class="d-block" src="/images/{{ image.name }}" alt="Nose Grab">
+                                                    <img class="d-block" src="/images/{{ image.name }}" alt="{{ trick.title }}">
                                                 </div>
                                             {% endfor %}        
                                         </div>
@@ -98,36 +107,12 @@
                     </div>
                 </div>
                 <!--  End Trick -->
-                
-                <!-- Start Comments -->
-                <div class="col-md-12 pl-0 pr-0">
-                    <div class="comments text-left padDiv mb-30">
-                        <div class="entry-comments">
-                        <h6 class="mb-30">{{ trick.comments | length }} commentaires</h6>        
-                            <ul class="entry-comments-list list-unstyled">
-                                {% for comment in comments %}
-                                <span class="anchor" id="{{ comment.id }}"></span>
-                                <li>
-                                <div class="entry-comments-item">
-                                    <img src="Content/backend/images/{{ comment.user.avatar }}" class="entry-comments-avatar" alt="{{ comment.user.username }}">
-                                        <div class="entry-comments-body">
-                                            <span class="entry-comments-author"><a href="" target="_blank"></a></span>
-                                            <span>{{ comment.createdAt | date('d/m/Y') }}</span>
-                                            <p class="mb-10">{{ comment.content }}</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                {% endfor %}                   
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Comments -->
 
                 <!-- Start Comment Add Form -->
                 {% if app.user %}
-                    <div id="comment-block" class="col-lg-12 px-0">
+                    <div class="col-lg-12 px-0 mb-30">                       
                         <div class="cmt padDiv">
+                        <h6 class="mb-30">Bonjour {{ app.user.username }} !</h6>
                             {{ form_start(form) }}
                             <div class="form-group">
                                 {{ form_row(form.content) }}
@@ -139,13 +124,39 @@
                         </div>
                     </div>
                     {% else %}
-                    <div class="col-md-12">
+                    <div class="col-md-12 px-0 mb-30">
                         <div class="comments text-center p-3">
-                            <p class="login-comment"><a href="{{ path('account_login') }}">Inscrivez-vous</a> ou <a href="{{ path('account_register') }}">connectez vous</a> pour commenter cet article</p>
+                            <p><a href="{{ path('account_register') }}">Inscrivez-vous</a> ou <a href="{{ path('account_login') }}">connectez vous</a> pour commenter cet article</p>
                         </div>
                     </div>
                     {% endif %}
                 <!-- Start Comment Add Form -->
+                
+                <!-- Start Comments -->
+                <span class="comments-anchor" id="comments-block"></span>
+                <div class="col-md-12 pl-0 pr-0">
+                    <div class="comments text-left padDiv mb-30">
+                        <div class="entry-comments">
+                        <h6 class="mb-30">{{ trick.comments | length }} commentaires</h6>        
+                            <ul class="entry-comments-list list-unstyled">
+                                {% for comment in comments %}
+                                <span class="comment-anchor" id="{{ comment.id }}"></span>
+                                <li>
+                                <div class="entry-comments-item">
+                                    <img src="/images/{{ comment.user.avatar }}" class="entry-comments-avatar" alt="{{ comment.user.username }}">
+                                        <div class="entry-comments-body">
+                                            <span class="entry-comments-author"><a href="" target="_blank">{{ comment.user.username }}</a></span>
+                                            <span class="comment-date">le {{ comment.createdAt | date('d/m/Y') }} à {{ comment.createdAt | date('H:i') }}</span>
+                                            <p class="comment-content text-justify">{{ comment.content }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}                   
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Comments -->   
             </div>     
         </div>           
     </div>

@@ -87,13 +87,17 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      maxSize = "500k",
+     *      maxSizeMessage = "Votre avatar ne doit pas dépasser 500 ko",
+     * )
      */
     private $avatar;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url(
-     *      message = "Veuillez entrer une URL valide !"
+     *      message = "Veuillez entrer une URL valide !",
      * )
      */
     private $website;

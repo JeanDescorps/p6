@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    {% set page = paging.currentPage %}
+    {% if paging.pages == 0 %}
+        {% set pages = 1 %}
+    {% else %}
+        {% set pages = paging.pages %}
+    {% endif %}
+    <div class="mb-3">
+        <ul class="pagination justify-content-center">
+            {% if page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path(route, {'page' : 1 })}}"><<</a>
+                <li>
+                <li class="page_item">
+                    <a class="page-link" href="{{ path(route, {'page' : page - 1 })}}">Page précédente</a>
+                </li>
+            {% endif %}
+            {% for i in 1..pages %}
+                <li class="page-item {% if page == i %}active{% endif %}">
+                    <a class="page-link" href="{{ path(route, {'page' : i })}}">{{ i }}</a>
+                </li>
+            {% endfor %}
+            {% if page < pages %}
+            <li class="page-item">
+               <a class="page-link" href="{{ path(route, {'page' : page + 1 })}}">Page suivante</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{{ path(route, {'page' : pages })}}">>></a> 
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

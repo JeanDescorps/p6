@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks - {{ trick.title }}{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+    <!-- Start Update Trick -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-md-offset-1 update-trick">
+                <div class="card card-small mb-4 mt-5">
+                    <div class="card-header border-bottom text-center">
+                        <h6 class="m-0">Modifier le trick</h6>                       
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                            <div class="row">
+                                <div class="col">
+                                    {% form_theme form _self %}
+                                    {{ form_start(form) }}
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                            <img src="/images/{{ trick.image }}" alt="{{ trick.image }}" class="img-trick-principale"> 
+                                                {{ form_row(form.file) }}                                              
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                {{ form_row(form.title) }}                                              
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12 text-center">
+                                                <hr>
+                                                <p class="collection-head first">Cliquez pour ajouter, supprimer ou modifier une image</p>
+                                                {{ form_widget(form.images) }}
+                                                <input type="hidden" id="image-counter" value="0">
+                                                <div class="form-group mt-2">                                                   
+                                                    <button type="button" class="btn btn-outline-info trick" id="add-image">Ajouter une image</button>
+                                                    <span class="counter-image text-danger"></span>
+                                                </div>
+                                                <hr>                                   
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12 text-center">                                             
+                                                <p class="collection-head">Cliquez pour ajouter, supprimer ou modifier une vidéo</p>
+                                                {{ form_widget(form.videos) }}
+                                                <input type="hidden" id="video-counter" value="0">
+                                                <div class="form-group mt-2">                                             
+                                                    <button type="button" class="btn btn-outline-info trick" id="add-video">Ajouter une vidéo</button>
+                                                    <span class="counter-video text-danger"></span>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 offset-md-2">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    {{ form_row(form.lead) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    {{ form_row(form.category) }}
+                                                </div>
+                                            </div>                              
+                                            <div class="form-group">
+                                                {{ form_row(form.content) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-4 text-center">
+                                            <button type="submit" class="btn btn-success">Modifier</button>
+                                        </div>
+                                    {{ form_end(form) }}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Update Trick -->
+{% endblock %}
+
+{% block _trick_images_entry_widget %}
+    <div class="row block-image"  id="block_{{id}}">
+        <div class="col-md-8 offset-md-2">
+            {% if form.vars.data.name is defined %}
+                <img src="/images/{{form.vars.data.name}}" alt="{{form.vars.data.name}}" class="img-trick">
+            {% endif %}
+        </div>    
+        <div class="col-md-6 offset-md-2">
+            <div class="form-group">
+                {{ form_errors(form.image) }}                                     
+                {{ form_widget(form.image) }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-secondary btn-trick"><i class="material-icons text-danger">clear</i></button>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+{% endblock %}
+
+{% block _trick_videos_entry_widget %}
+    <div class="row" id="block_{{id}}">
+        <div class="col-md-8 offset-md-2">
+            {% if form.vars.data.url is defined %}
+                <iframe src="{{ form.vars.data.url }}" class="iframe-trick" allowfullscreen></iframe>
+            {% endif %}
+        </div>
+        <div class="col-md-6 offset-md-2">
+            <div class="form-group">
+                {{ form_widget(form.url) }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-secondary btn-trick"><i class="material-icons text-danger">clear</i></button>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+{% endblock %}

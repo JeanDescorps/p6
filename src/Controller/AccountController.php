@@ -13,8 +13,8 @@ use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -149,8 +149,6 @@ class AccountController extends AbstractController
      *
      * @Route("/profile", name="account_profile")
      *
-     * @Security("is_granted('ROLE_USER')")
-     *
      * @param Request $request
      *
      * @return Response
@@ -158,55 +156,46 @@ class AccountController extends AbstractController
     public function profile(Request $request, ObjectManager $manager)
     {
         $user = $this->getUser();
+        // Tester avec findBy(['id' => $user->getId()]) avec UserRepo $repo
+        $userDb = $manager->createQuery('SELECT u FROM App\Entity\User u WHERE u.id = :id')->setParameter('id', $user->getId())->getScalarResult();
         $oldAvatar = $user->getAvatar();
+        $user->setAvatar(new File($this->getParameter('images_directory') . '/' . $user->getAvatar()));
         $form = $this->createForm(AccountType::class, $user, array('user' => $this->getUser()));
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($form->get('avatar')->getData() !== $user->getAvatar()) {
+            if ($form->get('avatar')->getData() !== null && $form->get('avatar')->getData() !== $user->getAvatar()) {
 
                 $newAvatar = $form->get('avatar')->getData();
-                $avatarExtension = $newAvatar->guessExtension();
-                $validExtension = array('jpg', 'jpeg', 'gif', 'png');
-
-                if (in_array($avatarExtension, $validExtension)) {
-
-                    if ($newAvatar->getSize() < 500000) {
-
-                        $avatarName = $this->generateUniqueFileName() . '.' . $newAvatar->guessExtension();
-                        $newAvatar->move(
-                            $this->getParameter('images_directory'),
-                            $avatarName
-                        );
-                        $user->setAvatar($avatarName);
-
-                    } else {
-                        $this->addFlash('danger', 'Votre avatar ne doit pas excéder 500 Ko.');
-                        return $this->redirectToRoute('account_profile');
-                    }
-                } else {
-                    $this->addFlash('danger', 'Votre avatar doit être au format jpg, jpeg, gif ou png.');
-                    return $this->redirectToRoute('account_profile');
+                $avatarName = $this->generateUniqueFileName() . '.' . $newAvatar->guessExtension();
+                $newAvatar->move(
+                    $this->getParameter('images_directory'),
+                    $avatarName
+                );
+                $user->setAvatar($avatarName);
+                if ($oldAvatar !== 'default-avatar.jpg') {
+                    unlink($this->getParameter('images_directory') . '/' . $oldAvatar);
                 }
+            } else {
+                $user->setAvatar($oldAvatar);
             }
 
             $manager->flush();
-            if ($oldAvatar !== 'default-avatar.jpg') {
-                unlink($this->getParameter('images_directory') . '/' . $oldAvatar);
-            }
             $this->addFlash('success', 'Votre compte a été mis à jour.');
             return $this->redirectToRoute('account_profile');
         }
         return $this->render('account/profile.html.twig', [
             'form' => $form->createView(),
+            'user' => $userDb[0],
         ]);
     }
 
     /**
      * Update password
      *
-     * @Route("/update-password", name="account_password")
+     * @Route("profile/update-password", name="account_password")
      *
      * @param Request $request
      *
