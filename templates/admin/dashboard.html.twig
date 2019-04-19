@@ -38,4 +38,64 @@
             </div>
         </div>        
     {% endfor %}
+        <div class="col-lg-5 col-md-12 col-sm-12 mb-4">
+            <div class="card card-small blog-comments">
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">Derniers commentaires</h6>
+                </div>
+                <div class="card-body p-0">
+                    {% for comment in comments %}
+                        <div class="blog-comments__item d-flex p-3">
+                            <div class="blog-comments__avatar mr-3">
+                                <img src="/images/{{ comment.user.avatar }}" alt="{{ comment.user.username }}" /> 
+                            </div>
+                            <div class="blog-comments__content">
+                                <div class="blog-comments__meta text-muted">
+                                    <a href="#">{{ comment.user.username }}</a> dans
+                                    <a href="/trick/{{ comment.trick.id }}#{{ comment.id }}" target="_blank">{{ comment.trick.title }}</a>
+                                    <span class="text-muted">- il y a 
+                                        {% set difference = date(comment.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                                        {% set leftDays = difference.days %}
+                                        {% if leftDays == 1 %}
+                                            1 jour
+                                        {% else %}
+                                            {{ leftDays }} jours
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                {% set consult = " <a href=comment/edit/" ~ comment.id ~ ">...</a>" %}
+                                <p class="m-0 my-1 mb-2 text-muted text-justify">
+                                    {{ comment.content|length > 50 ? comment.content|slice(0, 50) : comment.content }}{{ comment.content|length > 50 ? consult|raw }}
+                                </p>
+                                <div class="blog-comments__actions">
+                                    <div class="btn-group btn-group-sm">
+                                        <button type="button" onclick="window.open('/trick/{{ comment.trick.id }}#{{ comment.id }}')" target="_blank" class="btn btn-white">
+                                        <span class="text-success">
+                                        <i class="material-icons">arrow_right_alt</i>
+                                        </span> Consulter </button>
+                                        <button type="button" class="btn btn-white" data-toggle="modal" data-target="#deleteModal" data-href="{{ path('comment_admin_delete', {'id': comment.id}) }}">
+                                        <span class="text-danger">
+                                        <i class="material-icons">clear</i>
+                                        </span> Supprimer </button>
+                                        <button type="button" onclick="window.location.href = '{{ path('comment_admin_update', {'id': comment.id}) }}';" class="btn btn-white">
+                                        <span class="text-light">
+                                        <i class="material-icons">more_vert</i>
+                                        </span> Modifier </button>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="card-footer border-top">
+                    <div class="row">
+                        <div class="col text-center view-report">
+                            <form action="{{ path('admin_comment') }}" method="post">
+                                <button type="submit" class="btn btn-white">Voir tous les commentaires</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 {% endblock %}
