@@ -64,7 +64,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
+    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -81,20 +81,19 @@ class AccountController extends AbstractController
                 ->setConfirmationToken($confirmation_token);
             $manager->persist($user);
             $manager->flush();
-            $message = (new \Swift_Message('Confirmation de compte'))
-                ->setFrom('jean.webdev@gmail.com')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView('emails/registration.html.twig', [
-                        'username' => $user->getUsername(),
-                        'id' => $user->getId(),
-                        'token' => $user->getConfirmationToken(),
-                        'adress' => $_SERVER['SERVER_NAME'] . ':8000',
-                    ]
-                    ),
-                    'text/html'
-                );
-            $mailer->send($message);
+            $subject = 'Confirmation de compte';
+            $content = $this->renderView('emails/registration.html.twig', [
+                'username' => $user->getUsername(),
+                'id' => $user->getId(),
+                'token' => $user->getConfirmationToken(),
+                'adress' => $_SERVER['SERVER_NAME'],
+            ]
+            );
+            $headers = 'From: "Snowtricks"<webdev@jeandescorps.fr>' . "\n";
+            $headers .= 'Reply-To: jean.webdev@gmail.com' . "\n";
+            $headers .= 'Content-Type: text/html; charset="iso-8859-1"' . "\n";
+            $headers .= 'Content-Transfer-Encoding: 8bit';
+            mail($user->getEmail(), $subject, $content, $headers);
             $this->addFlash('success', 'Votre compte a bien été crée, un email vous a été envoyé pour le confirmer.');
             return $this->redirectToRoute('account_register');
         }
@@ -228,7 +227,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function forgotPassword(Request $request, UserRepository $repo, ObjectManager $manager, \Swift_Mailer $mailer)
+    public function forgotPassword(Request $request, UserRepository $repo, ObjectManager $manager)
     {
         $passwordForgot = new PasswordForgot();
         $user = new User();
@@ -240,20 +239,19 @@ class AccountController extends AbstractController
                 $confirmation_token = md5(random_bytes(60));
                 $user->setConfirmationToken($confirmation_token);
                 $manager->flush();
-                $message = (new \Swift_Message('Réinitialisation du mot de passe'))
-                    ->setFrom('jean.webdev@gmail.com')
-                    ->setTo($user->getEmail())
-                    ->setBody(
-                        $this->renderView('emails/forgot-password.html.twig', [
-                            'username' => $user->getUsername(),
-                            'id' => $user->getId(),
-                            'token' => $user->getConfirmationToken(),
-                            'adress' => $_SERVER['SERVER_NAME'] . ':8000',
-                        ]
-                        ),
-                        'text/html'
-                    );
-                $mailer->send($message);
+                $subject = 'Réinitialisation du mot de passe';
+                $content = $this->renderView('emails/forgot-password.html.twig', [
+                    'username' => $user->getUsername(),
+                    'id' => $user->getId(),
+                    'token' => $user->getConfirmationToken(),
+                    'adress' => $_SERVER['SERVER_NAME'],
+                ]
+                );
+                $headers = 'From: "Snowtricks"<webdev@jeandescorps.fr>' . "\n";
+                $headers .= 'Reply-To: jean.webdev@gmail.com' . "\n";
+                $headers .= 'Content-Type: text/html; charset="iso-8859-1"' . "\n";
+                $headers .= 'Content-Transfer-Encoding: 8bit';
+                mail($user->getEmail(), $subject, $content, $headers);
                 $this->addFlash('success', 'Un email vient de vous être envoyé pour réinitialiser votre mot de passe !');
                 return $this->redirectToRoute('account_forgot');
             } else {
