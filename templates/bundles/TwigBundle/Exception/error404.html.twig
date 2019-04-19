@@ -18,10 +18,17 @@
                 <h1 class="mb-5 text-center">Désolé, la page demandée n'existe pas.</h1>
                 <div class="text-center mb-5">
                     <div class="row justify-content-center">
-                        <a href="" class="btn btn-success button-exception m-1">Accueil</a>
-                        <a href="" class="btn btn-success button-exception m-1">Tricks</a>
-                        <a href="" class="btn btn-success button-exception m-1">Inscription</a>
-                        <a href="" class="btn btn-success button-exception m-1">Connexion</a>
+                        <a href="{{ path('home') }}" class="btn btn-success button-exception m-1">Accueil</a>
+                        <a href="/#tricks" class="btn btn-success button-exception m-1">Tricks</a>
+                        {% if not app.user %}
+                            <a href="{{ path('account_register') }}" class="btn btn-success button-exception m-1">Inscription</a>
+                            <a href="{{ path('account_login') }}" class="btn btn-success button-exception m-1">Connexion</a>
+                        {% else %}
+                            <a href="{{ path('account_profile') }}" class="btn btn-success button-exception m-1">Profil</a>
+                            {% if app.user.role == 'ROLE_ADMIN' %}
+                                <a href="{{ path('account_profile') }}" class="btn btn-success button-exception m-1">Administration</a>
+                            {% endif %}
+                        {% endif %}
                     </div>                  
                 </div>
             </div>
