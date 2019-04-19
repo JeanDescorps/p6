@@ -24,7 +24,7 @@
                                 Par : {{ trick.user.username }}
                             </li> |           
                             <li class="list-inline-item">
-                                Ajouté le {{ trick.createdAt | date('d/m/Y') }} (<small>Mise à jour le : </small>)
+                                Ajouté le {{ trick.createdAt | date('d/m/Y') }} (<small>Mise à jour le : {% if trick.updatedAt is defined %}{{ trick.updatedAt | date('d/m/Y') }}{% endif %}</small>)
                             </li> |                            
                             <li class="list-inline-item">
                                 Catégorie : {{ trick.category.title }}
