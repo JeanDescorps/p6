@@ -551,12 +551,6 @@ div.blog-comments__content>p {
     border-color: #454D55;
 }
 
-body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div:nth-child(2)>div>div>div.card-footer.paging.user-inactive>div>div>ul>li>a {
-    color: #1a1a1a;
-    background-color: #919aa1;
-    border-color: #1a1a1a;
-}
-
 .table td {
     padding: 0.75rem;
 }

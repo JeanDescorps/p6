@@ -21,7 +21,9 @@
                                     {{ form_start(form) }}
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
-                                            <img src="/images/{{ trick.image }}" alt="{{ trick.image }}" class="img-trick-principale"> 
+                                                <div class="text-center">
+                                                    <img src="/images/{{ trick.image }}" alt="{{ trick.image }}" class="img-trick-principale"> 
+                                                </div>                                         
                                                 {{ form_row(form.file) }}                                              
                                             </div>
                                         </div>
@@ -88,8 +90,9 @@
 {% block _trick_images_entry_widget %}
     <div class="row block-image"  id="block_{{id}}">
         <div class="col-md-8 offset-md-2">
+        {% dump(form.vars) %}
             {% if form.vars.data.name is defined %}
-                <img src="/images/{{form.vars.data.name}}" alt="{{form.vars.data.name}}" class="img-trick">
+                <img src="/images/{{form.vars.data.name}}" alt="trick-image-{{form.vars.name}}" class="img-trick">
             {% endif %}
         </div>    
         <div class="col-md-6 offset-md-2">

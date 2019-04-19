@@ -17,7 +17,7 @@
                     </div>
                 {% endfor %}             
                 <div class="card mt-5">
-                    <img class="card-img-top" src="/images/{{ trick.image }}" alt="Trick">
+                    <img class="card-img-top" src="/images/{{ trick.image }}" alt="{{ trick.title }}-main">
                     <div class="card-body">
                         <ul class="list-inline trick-data">
                             <li class="list-inline-item">
@@ -50,7 +50,7 @@
                                         <div class="carousel-inner enlarge">
                                             {% for image in images %}
                                                 <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
-                                                    <img class="d-block" src="/images/{{ image.name }}" alt="{{ trick.title }}">
+                                                    <img class="d-block" src="/images/{{ image.name }}" alt="{{ trick.title }}-image-{{ image.id }}">
                                                 </div>
                                             {% endfor %}        
                                         </div>
