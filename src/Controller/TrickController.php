@@ -107,10 +107,12 @@ class TrickController extends AbstractController
         $path = $this->getParameter('images_directory');
         $images = $repo_image->findBy(array('trick' => $trick->getId()));
         $form = $this->createForm(TrickType::class, $trick);
+        foreach ($trick->getImages() as $image) {
+            $image->setPath($path);
+        }
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $path = $this->getParameter('images_directory');
             $trick->setPath($path);
 
             for ($i = 0; $i < 8; $i++) {

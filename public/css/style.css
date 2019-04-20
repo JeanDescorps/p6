@@ -534,7 +534,7 @@ div.blog-comments__content>p {
     color: #3d5170;
 }
 
-i.material-icons {
+i.material-icons.consult {
     font-size: inherit;
     position: relative;
     top: 2px;

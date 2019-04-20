@@ -31,11 +31,16 @@ class Image
     private $trick;
 
     /**
-     * @Assert\Image()
+     * @Assert\Image(
+     *      maxSize = "1M",
+     *      maxSizeMessage = "Votre avatar ne doit pas dépasser 1 Mo",
+     * )
      */
     private $image;
 
     private $path;
+
+    private $tempFilename;
 
     public function getId(): ?int
     {
@@ -97,6 +102,7 @@ class Image
             return;
         }
 
+        // If update
         if ($this->id) {
             unlink($this->path . '/' . $this->name);
         }
@@ -108,6 +114,27 @@ class Image
         // Moving image into the image repository
         $this->image->move($this->path, $name);
 
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveUpload()
+    {
+        // Saving image name (after removing from database, the image name doesn't exist anymore)
+        $this->tempFilename = $this->path . '/' . $this->name;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        // We doesn't have the id, we use the image name
+        if (file_exists($this->tempFilename)) {
+            // Deleting the file
+            unlink($this->tempFilename);
+        }
     }
 
     private function createName(): string

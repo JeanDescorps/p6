@@ -109,7 +109,10 @@ class Trick
     private $updatedAt;
 
     /**
-     * @Assert\Image()
+     * @Assert\Image(
+     *      maxSize = "1M",
+     *      maxSizeMessage = "Votre avatar ne doit pas dépasser 1 Mo",
+     * )
      */
     private $file;
 
