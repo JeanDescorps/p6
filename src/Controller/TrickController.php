@@ -64,14 +64,18 @@ class TrickController extends AbstractController
 
             $trick->setPath($path);
 
-            foreach ($trick->getImages() as $image) {
-                $image->setPath($path);
+            for ($i = 0; $i < 8; $i++) {
+                foreach ($trick->getImages() as $image) {
+                    $image->setPath($path);
+                }
             }
 
-            foreach ($trick->getVideos() as $video) {
-                if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->getUrl(), $match)) {
-                    $video_id = $match[1];
-                    $video->setUrl('https://www.youtube.com/embed/' . $video_id);
+            for ($i = 0; $i < 8; $i++) {
+                foreach ($trick->getVideos() as $video) {
+                    if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->getUrl(), $match)) {
+                        $video_id = $match[1];
+                        $video->setUrl('https://www.youtube.com/embed/' . $video_id);
+                    }
                 }
             }
 
@@ -109,14 +113,18 @@ class TrickController extends AbstractController
             $path = $this->getParameter('images_directory');
             $trick->setPath($path);
 
-            foreach ($trick->getImages() as $image) {
-                $image->setPath($path);
+            for ($i = 0; $i < 8; $i++) {
+                foreach ($trick->getImages() as $image) {
+                    $image->setPath($path);
+                }
             }
 
-            foreach ($trick->getVideos() as $video) {
-                if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->getUrl(), $match)) {
-                    $video_id = $match[1];
-                    $video->setUrl('https://www.youtube.com/embed/' . $video_id);
+            for ($i = 0; $i < 8; $i++) {
+                foreach ($trick->getVideos() as $video) {
+                    if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->getUrl(), $match)) {
+                        $video_id = $match[1];
+                        $video->setUrl('https://www.youtube.com/embed/' . $video_id);
+                    }
                 }
             }
 
