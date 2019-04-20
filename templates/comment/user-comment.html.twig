@@ -25,6 +25,8 @@
                                     {% set leftDays = difference.days %}
                                     {% if leftDays == 1 %}
                                         1 jour
+                                    {% elseif leftDays == 0 %}
+                                        moins de 24 heures
                                     {% else %}
                                         {{ leftDays }} jours
                                     {% endif %}

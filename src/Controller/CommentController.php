@@ -54,6 +54,7 @@ class CommentController extends AbstractController
         $form = $this->createForm(CommentUpdateType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreatedAt(new \DateTime());
             $manager->flush();
             $this->addFlash('success', 'Votre commentaire a été mis à jour.');
             return $this->redirectToRoute('comment_user');
