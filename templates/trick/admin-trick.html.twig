@@ -9,7 +9,7 @@
             <div class="card card-small card-post card-post--1">
                 <div class="card-post__image" style="background-image: url('/images/{{ trick.image }}');">
                     <div class="card-post__author d-flex">
-                        <a href="" target="_blank" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('/images/{{ trick.user.avatar }}');">Ecrit par {{ trick.user.username }}</a>
+                        <a href="{{ path('user_profile', { 'id' : trick.user.id }) }}" target="_blank" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('/images/{{ trick.user.avatar }}');">Ecrit par {{ trick.user.username }}</a>
                     </div>
                 </div>
                 <div class="card-body">

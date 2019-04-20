@@ -45,7 +45,7 @@
                         </table>
                     </div>
                     <div class="card-footer paging user-active">
-                       {% include('/paging/paging.html.twig') with {'route' : 'admin_user', 'paging' : pagingActive} %}
+                       {% include('/paging/paging-user-active.html.twig') with {'route' : 'admin_user', 'paging' : pagingActive} %}
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
             <div class="col">
                 <div class="card card-small overflow-hidden mb-4">
                     <div class="card-header bg-dark">
-                        <h6 class="m-0 text-white">Utilisateurs non confirmés</h6>
+                        <h6 class="m-0 text-white" id="user-inactive">Utilisateurs non confirmés</h6>
                     </div>
                     <div class="card-body p-0 bg-dark text-center">
                         <table class="table table-dark mb-0">
@@ -91,7 +91,7 @@
                         </table>
                     </div>
                     <div class="card-footer paging user-inactive inactive-dark">
-                        {% include('/paging/paging.html.twig') with {'route' : 'admin_user', 'paging' : pagingInactive} %}
+                        {% include('/paging/paging-user-inactive.html.twig') with {'route' : 'admin_user', 'paging' : pagingInactive} %}
                     </div>
                 </div>
             </div>

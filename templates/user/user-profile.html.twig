@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks - Profil de {{ user.username }}{% endblock %}
+
+{% block body %}
+    <div class="container profile-user">
+        <div class="row">
+            <!-- User Card -->
+            <div class="col-lg-6">
+                <div class="card card-small mb-4 pt-3">
+                    <div class="card-header border-bottom text-center">
+                        <div class="mb-3 mx-auto">
+                            <img class="rounded-circle" src="/images/{{ user.avatar }}" alt="Avatar" width="110"> 
+                        </div>
+                        <h4 class="mb-0">{{ user.username }}</h4>
+                        <span class="text-muted d-block mb-2">{{ user.email }}</span>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-4">
+                            <strong class="text-muted d-block mb-2">Website</strong>
+                            <span>
+                                {% if user.website %}
+                                    {{ user.website }}
+                                {% else %}
+                                    Votre website
+                                {% endif %}
+                            </span>                      
+                        </li>
+                        <li class="list-group-item p-4">
+                            <strong class="text-muted d-block mb-2">Description</strong>
+                            <span>
+                                {% if user.description %}
+                                    {{ user.description }}
+                                {% else %}
+                                    Décrivez-vous en quelques lignes.
+                                {% endif %}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>    
+            <!-- End User Card -->
+            <!-- Start User Comment -->
+            <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
+                <div class="card card-small blog-comments">
+                    <div class="card-header border-bottom">
+                        <h6 class="m-0">Les commentaires de {{ user.username }}</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        {% for comment in paging.data %}
+                            <div class="blog-comments__item d-flex p-3">
+                                <div class="blog-comments__avatar mr-3">
+                                    <img src="/images/{{ comment.user.avatar }}" alt="{{ comment.user.username }}" /> 
+                                </div>
+                                <div class="blog-comments__content">
+                                    <div class="blog-comments__meta text-muted">
+                                        <a href="{{ path('user_profile', { 'id' : user.id }) }}" target="_blank">{{ comment.user.username }}</a> dans
+                                        <a href="/trick/{{ comment.trick.id }}#{{ comment.id }}" target="_blank">{{ comment.trick.title }}</a>
+                                        <span class="text-muted">- il y a 
+                                            {% set difference = date(comment.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                                            {% set leftDays = difference.days %}
+                                            {% if leftDays == 1 %}
+                                                1 jour
+                                            {% else %}
+                                                {{ leftDays }} jours
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    {% set consult = " <a target='_blank' href=/trick/" ~ comment.trick.id ~ "#" ~ comment.id ~">...</a>" %}
+                                    <p class="m-0 my-1 mb-2 text-muted text-justify">
+                                        {{ comment.content|length > 50 ? comment.content|slice(0, 50) : comment.content }}{{ comment.content|length > 50 ? consult|raw }}
+                                    </p>
+                                    <div class="blog-comments__actions">
+                                        <div class="btn-group btn-group-sm">
+                                            <button type="button" onclick="window.open('/trick/{{ comment.trick.id }}#{{ comment.id }}')" target="_blank" class="btn btn-white">
+                                            <span class="text-success">
+                                            <i class="material-icons">arrow_right_alt</i>
+                                            </span> Consulter </button>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer paging border-top">
+                        {% include('/paging/paging-user-comments.html.twig') with {'route' : 'user_profile'} %}
+                    </div>
+                </div>
+            </div>
+            <!-- End User Comment -->
+            <!-- Start User Trick -->
+            <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                <div class="card card-small blog-comments">
+                    <div class="card-header border-bottom">
+                        <h6 class="m-0">Les tricks de {{ user.username }}</h6>
+                    </div>
+                    <div class="card-body p-0 bg-card">
+                        <div class="row trick-user">
+                            {% for trick in pagingTrick.data %}
+                                <div class="col-lg-4 col-md-6 col-sm-12 my-4">
+                                    <div class="card card-small card-post card-post--1">
+                                        <div class="card-post__image" style="background-image: url('/images/{{ trick.image }}');">
+                                            <div class="card-post__author d-flex">
+                                                <a href="{{ path('user_profile', { 'id' : user.id }) }}" target="_blank" class="card-post__author-avatar card-post__author-avatar--small" style="background-image: url('/images/{{ trick.user.avatar }}');">Ecrit par {{ trick.user.username }}</a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body profile">
+                                            <h5 class="card-title">
+                                                <a class="text-fiord-blue" href="{{ path('trick_show', {'id': trick.id}) }}">{{ trick.title }}</a>
+                                            </h5>
+                                            <p class="card-text d-inline-block mb-3">{{ trick.lead }}</p><br>
+                                            <span class="text-muted">{{ trick.createdAt | date('d F Y') }}</span>
+                                            <div class="blog-comments__actions mt-3">
+                                                <div class="btn-group btn-group-sm">
+                                                    <button type="button" onclick="window.open('{{ path('trick_show', {'id': trick.id}) }}')" target="_blank" class="btn btn-white">
+                                                    <span class="text-success">
+                                                    <i class="material-icons">arrow_right_alt</i>
+                                                    </span> Consulter </button>
+                                                </div>
+                                            </div>                   
+                                        </div>
+                                    </div>
+                                </div>      
+                            {% endfor %}
+                            </div>
+                        </div>
+                    <div id="paging-tricks" class="card-footer paging border-top">
+                        {% include('/paging/paging-user-tricks.html.twig') with {'route' : 'user_profile', 'paging' : pagingTrick} %}
+                    </div>
+                </div>
+            </div>
+            <!-- End User Trick -->
+        </div>
+    </div>
+{% endblock %}

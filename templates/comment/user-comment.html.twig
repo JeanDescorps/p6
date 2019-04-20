@@ -18,7 +18,7 @@
                         </div>                    
                         <div class="blog-comments__content">
                             <div class="blog-comments__meta text-muted">
-                                <a href="#">{{ comment.user.username }}</a> dans
+                                <a href="{{ path('user_profile', { 'id' : comment.user.id }) }}" target="_blank">{{ comment.user.username }}</a> dans
                                 <a href="/trick/{{ comment.trick.id }}#{{ comment.id }}" target="_blank">{{ comment.trick.title }}</a>
                                 <span class="text-muted">- il y a 
                                     {% set difference = date(comment.createdAt|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}

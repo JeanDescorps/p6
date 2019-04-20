@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Entity\Trick;
 use App\Entity\User;
 use App\Service\Paging;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,9 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/admin/user/{page<\d+>?1}/{pageIn<\d+>?1}", name="admin_user")
+     * @Route("/admin/user/{pageAc<\d+>?1}/{pageIn<\d+>?1}", name="admin_user")
      */
-    public function findAll($page, $pageIn, Paging $paging, ObjectManager $manager)
+    public function findAll($pageAc, $pageIn, Paging $paging, ObjectManager $manager)
     {
         $pagingInactive = $paging->setEntityClass(User::class)
             ->setCurrentPage($pageIn)
@@ -22,13 +24,15 @@ class UserController extends AbstractController
 
         $pagingActive = new Paging($manager);
         $pagingActive->setEntityClass(User::class)
-            ->setCurrentPage($page)
+            ->setCurrentPage($pageAc)
             ->setLimit($this->getParameter('user_limit'))
             ->setCriteria(['confirmed' => 1]);
 
         return $this->render('user/admin-user.html.twig', [
             'pagingActive' => $pagingActive,
             'pagingInactive' => $pagingInactive,
+            'pageAc' => $pageAc,
+            'pageIn' => $pageIn,
         ]);
     }
 
@@ -42,4 +46,30 @@ class UserController extends AbstractController
         $this->addFlash('success', 'L\'utilisateur a été supprimé.');
         return $this->redirectToRoute('admin_user');
     }
+
+    /**
+     * @Route("/user/{id}/{page<\d+>?1}/{pageT<\d+>?1}", name="user_profile")
+     */
+    public function userProfile(User $user, $page, $pageT, Paging $paging, ObjectManager $manager)
+    {
+        $paging->setEntityClass(Comment::class)
+            ->setCurrentPage($page)
+            ->setLimit($this->getParameter('comment_user_limit'))
+            ->setCriteria(['user' => $user->getId()]);
+
+        $pagingTrick = new Paging($manager);
+        $pagingTrick->setEntityClass(Trick::class)
+            ->setCurrentPage($pageT)
+            ->setLimit($this->getParameter('trick_user_limit'))
+            ->setCriteria(['user' => $user->getId()]);
+
+        return $this->render('user/user-profile.html.twig', [
+            'user' => $user,
+            'paging' => $paging,
+            'pagingTrick' => $pagingTrick,
+            'pageC' => $page,
+            'pageT' => $pageT,
+        ]);
+    }
+
 }

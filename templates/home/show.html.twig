@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <ul class="list-inline trick-data">
                             <li class="list-inline-item">
-                                Par : {{ trick.user.username }}
+                                Par : <a target="_blank" href="{{ path('user_profile', { 'id' : trick.user.id }) }}">{{ trick.user.username }}</a>
                             </li> |           
                             <li class="list-inline-item">
                                 Ajouté le {{ trick.createdAt | date('d/m/Y') }} (<small>Mise à jour le : {% if trick.updatedAt is defined %}{{ trick.updatedAt | date('d/m/Y') }}{% endif %}</small>)
@@ -145,7 +145,7 @@
                                 <div class="entry-comments-item">
                                     <img src="/images/{{ comment.user.avatar }}" class="entry-comments-avatar" alt="{{ comment.user.username }}">
                                         <div class="entry-comments-body">
-                                            <span class="entry-comments-author"><a href="" target="_blank">{{ comment.user.username }}</a></span>
+                                            <span class="entry-comments-author"><a href="{{ path('user_profile', { 'id' : comment.user.id }) }}" target="_blank">{{ comment.user.username }}</a></span>
                                             <span class="comment-date">le {{ comment.createdAt | date('d/m/Y') }} à {{ comment.createdAt | date('H:i') }}</span>
                                             <p class="comment-content text-justify">{{ comment.content }}</p>
                                         </div>

@@ -90,7 +90,6 @@
 {% block _trick_images_entry_widget %}
     <div class="row block-image"  id="block_{{id}}">
         <div class="col-md-8 offset-md-2">
-        {% dump(form.vars) %}
             {% if form.vars.data.name is defined %}
                 <img src="/images/{{form.vars.data.name}}" alt="trick-image-{{form.vars.name}}" class="img-trick">
             {% endif %}

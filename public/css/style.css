@@ -446,10 +446,6 @@ p.collection-head.first {
     margin-top: 2rem;
 }
 
-/*.btn.btn-outline-info.trick {
-    margin-top: .6rem;
-}*/
-
 .iframe-trick {
     width: 100%;
     min-height: 20rem;
@@ -469,4 +465,126 @@ p.collection-head.first {
     color: black;
     border: 2px solid #d9534f;
     border-radius: 0.625rem;
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/*  /* User profile */
+
+/*-----------------------------------------------------------------------------------*/
+
+.profile-user {
+    margin-top: 12rem;
+}
+
+.card-header {
+    background-color: transparent;
+}
+
+.card-footer {
+    background-color: transparent;
+    padding: 1rem;
+}
+
+.card-footer.paging {
+    padding-bottom: 0;
+}
+
+ul.pagination {
+    margin: 0;
+}
+
+.blog-comments__item {
+    padding: 0;
+    border-top: 1px solid #e1e5eb;
+}
+
+.blog-comments__avatar img {
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: .25rem;
+}
+
+div.blog-comments__content>p {
+    font-weight: 600;
+}
+
+.blog-comments__actions {
+    font-size: 95%;
+}
+
+.blog-comments__actions .btn-group button {
+    padding: .25rem .5625rem;
+}
+
+.btn.btn-white {
+    text-transform: none;
+    font-weight: 400;
+}
+
+.btn-group-sm>.btn {
+    padding: .4286rem .875rem;
+    font-size: .8rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+}
+
+.btn.btn-white {
+    border: 1px solid #e1e5eb;
+    color: #3d5170;
+}
+
+i.material-icons {
+    font-size: inherit;
+    position: relative;
+    top: 2px;
+}
+
+.card-post__image {
+    position: relative;
+    min-height: 10.3125rem;
+    border-top-left-radius: .625rem;
+    border-top-right-radius: .625rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.row.trick-user {
+    padding: 0;
+}
+
+.row.trick-user:first-child {
+    padding-left: 15px;
+}
+
+.row.trick-user:last-child {
+    padding-right: 15px;
+}
+
+.card-post--1 .card-post__author {
+    -webkit-transform: translateY(50%);
+    transform: translateY(50%);
+    margin-left: 1.5625rem;
+    position: absolute;
+    bottom: 0;
+}
+
+.card-post__author-avatar {
+    width: 2.8125rem;
+    height: 2.8125rem;
+    box-shadow: 0 0 0 0.125rem #fff, 0 0.1875rem 0.4375rem rgba(90, 97, 105, .5);
+    display: block;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    text-indent: -9999px;
+}
+
+.card-body.profile {
+    padding-top: 2.1875rem;
+}
+
+.bg-card {
+    background-color: #f5f6f8;
 }
