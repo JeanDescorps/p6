@@ -68,6 +68,13 @@ class TrickController extends AbstractController
                 $image->setPath($path);
             }
 
+            foreach ($trick->getVideos() as $video) {
+                if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->getUrl(), $match)) {
+                    $video_id = $match[1];
+                    $video->setUrl('https://www.youtube.com/embed/' . $video_id);
+                }
+            }
+
             $createdAt = new \DateTime();
 
             $trick->setCreatedAt($createdAt)
@@ -105,6 +112,14 @@ class TrickController extends AbstractController
             foreach ($trick->getImages() as $image) {
                 $image->setPath($path);
             }
+
+            foreach ($trick->getVideos() as $video) {
+                if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->getUrl(), $match)) {
+                    $video_id = $match[1];
+                    $video->setUrl('https://www.youtube.com/embed/' . $video_id);
+                }
+            }
+
             $trick->setUpdatedAt(new \Datetime);
             $manager->flush();
             $this->addFlash('success', 'Votre trick a été modifié avec succés !');

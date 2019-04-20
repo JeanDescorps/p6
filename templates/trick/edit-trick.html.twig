@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12 text-center">                                             
-                                                <p class="collection-head">Cliquez pour ajouter, supprimer ou modifier une vidéo</p>
+                                                <p class="collection-head">Cliquez pour ajouter, supprimer ou modifier une vidéo (<u>Youtube uniquement</u>)</p>
                                                 {{ form_widget(form.videos) }}
                                                 <input type="hidden" id="video-counter" value="0">
                                                 <div class="form-group mt-2 pb-2">                                             
@@ -116,6 +116,7 @@
         </div>
         <div class="col-md-6 offset-md-2">
             <div class="form-group">
+                {{ form_errors(form.url) }}
                 {{ form_widget(form.url) }}
             </div>
         </div>

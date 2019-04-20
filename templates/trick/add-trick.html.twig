@@ -48,7 +48,7 @@
                                         </div>                                     
                                     </div>
                                     <div class="form-group col-md-6 text-center">
-                                        <p>Cliquez pour ajouter une vidéo</p>
+                                        <p>Cliquez pour ajouter une vidéo (<u>Youtube uniquement</u>)</p>
                                         {{ form_widget(form.videos) }}
                                         <input type="hidden" id="video-counter" value="0">
                                         <div class="form-group mt-2">
@@ -89,6 +89,7 @@
     <div class="row" id="block_{{id}}">
         <div class="col-md-6 offset-md-2">
             <div class="form-group">
+                {{ form_errors(form.url) }}
                 {{ form_widget(form.url) }}
             </div>
         </div>

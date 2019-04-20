@@ -19,8 +19,10 @@ class Video
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
-     * @Assert\Url(
-     *      message = "Veuillez entrer une URL valide !",
+     * @Assert\Regex(
+     *     pattern="/^((http\:\/\/){0,}(www\.){0,}(youtube\.com){1}|(youtu\.be){1}(\/watch\?v\=[^\s]){1})$/",
+     *     match=true,
+     *     message="Veuillez insérer un lien Youtube valide !"
      * )
      */
     private $url;
