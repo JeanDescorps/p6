@@ -60,7 +60,6 @@ class AccountController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @param UserPasswordEncoderInterface $encoder
-     * @param \Swift_Mailer $mailer
      *
      * @return Response
      */
@@ -149,6 +148,7 @@ class AccountController extends AbstractController
      * @Route("/profile", name="account_profile")
      *
      * @param Request $request
+     * @param ObjectManager $manager
      *
      * @return Response
      */
@@ -196,6 +196,8 @@ class AccountController extends AbstractController
      * @Route("profile/update-password", name="account_password")
      *
      * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param ObjectManager $manager
      *
      * @return Response
      */
@@ -223,6 +225,10 @@ class AccountController extends AbstractController
      * Forgot password
      *
      * @Route("/forgot-password", name="account_forgot")
+     *
+     * @param Request $request
+     * @param UserRepository $repo
+     * @param ObjectManager $manager
      *
      * @return Response
      */
@@ -267,6 +273,11 @@ class AccountController extends AbstractController
      * Reset password (forgot)
      *
      * @Route("/reset-password", name="account_reset")
+     *
+     * @param Request $request
+     * @param UserRepository $repo
+     * @param ObjectManager $manager
+     * @param UserPasswordEncoderInterface $encoder
      *
      * @return Response
      */

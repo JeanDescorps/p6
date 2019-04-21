@@ -13,7 +13,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
+     * Find all users
+     *
      * @Route("/admin/user/{pageAc<\d+>?1}/{pageIn<\d+>?1}", name="admin_user")
+     *
+     * @param [type] $pageAc
+     * @param [type] $pageIn
+     * @param Paging $paging
+     * @param ObjectManager $manager
+     *
+     * @return Response
      */
     public function findAll($pageAc, $pageIn, Paging $paging, ObjectManager $manager)
     {
@@ -37,7 +46,14 @@ class UserController extends AbstractController
     }
 
     /**
+     * Delete user
+     *
      * @Route("/admin/user/delete/{id}", name="admin_user_delete")
+     *
+     * @param ObjectManager $manager
+     * @param User $user
+     *
+     * @return Response
      */
     public function delete(ObjectManager $manager, User $user)
     {
@@ -48,7 +64,17 @@ class UserController extends AbstractController
     }
 
     /**
+     * Display user profile with his datas
+     *
      * @Route("/user/{id}/{page<\d+>?1}/{pageT<\d+>?1}", name="user_profile")
+     *
+     * @param User $user
+     * @param [type] $page
+     * @param [type] $pageT
+     * @param Paging $paging
+     * @param ObjectManager $manager
+     *
+     * @return Response
      */
     public function userProfile(User $user, $page, $pageT, Paging $paging, ObjectManager $manager)
     {

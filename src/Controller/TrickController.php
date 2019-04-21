@@ -14,9 +14,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
-
     /**
+     * Find user tricks
+     *
      * @Route("/profile/trick/{page<\d+>?1}", name="trick_user")
+     *
+     * @param [type] $page
+     * @param Paging $paging
+     *
+     * @return Response
      */
     public function find($page, Paging $paging)
     {
@@ -31,7 +37,14 @@ class TrickController extends AbstractController
     }
 
     /**
+     * Find all tricks
+     *
      * @Route("/admin/trick/{page<\d+>?1}", name="admin_trick")
+     *
+     * @param [type] $page
+     * @param Paging $paging
+     *
+     * @return Response
      */
     public function findAll($page, Paging $paging)
     {
@@ -45,7 +58,14 @@ class TrickController extends AbstractController
     }
 
     /**
+     * Add trick
+     *
      * @Route("/profile/add-trick", name="trick_add")
+     *
+     * @param Request $request
+     * @param ObjectManager $manager
+     *
+     * @return Response
      */
     public function add(Request $request, ObjectManager $manager)
     {
@@ -96,11 +116,20 @@ class TrickController extends AbstractController
     }
 
     /**
+     * Edit trick
+     *
      * @Route("/trick/{id}/edit", name="trick_edit")
      * @Security(
      *      "user === trick.getUser() || is_granted('ROLE_ADMIN')",
      *      message = "Ce trick ne vous appartient pas !"
      * )
+     *
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @param Trick $trick
+     * @param ImageRepository $repo_image
+     *
+     * @return Response
      */
     public function edit(Request $request, ObjectManager $manager, Trick $trick, ImageRepository $repo_image)
     {
@@ -145,11 +174,18 @@ class TrickController extends AbstractController
     }
 
     /**
+     * Delete trick for user
+     *
      * @Route("/profile/trick/delete/{id}", name="trick_delete")
      * @Security(
      *      "user === trick.getUser()",
      *      message = "Ce trick ne vous appartient pas !"
      * )
+     *
+     * @param ObjectManager $manager
+     * @param Trick $trick
+     *
+     * @return Response
      */
     public function delete(ObjectManager $manager, Trick $trick)
     {
@@ -160,7 +196,14 @@ class TrickController extends AbstractController
     }
 
     /**
+     * Delete trick for admin
+     *
      * @Route("/admin/trick/delete/{id}", name="trick_admin_delete")
+     *
+     * @param ObjectManager $manager
+     * @param Trick $trick
+     *
+     * @return Response
      */
     public function deleteAll(ObjectManager $manager, Trick $trick)
     {

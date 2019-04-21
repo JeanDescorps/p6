@@ -14,7 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends AbstractController
 {
     /**
+     * Find user comment
+     *
      * @Route("/profile/comment/{page<\d+>?1}", name="comment_user")
+     *
+     * @param [type] $page
+     * @param Paging $paging
+     *
+     * @return Response
      */
     public function find($page, Paging $paging)
     {
@@ -29,7 +36,14 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Find all comments
+     *
      * @Route("/admin/comment/{page<\d+>?1}", name="admin_comment")
+     *
+     * @param [type] $page
+     * @param Paging $paging
+     *
+     * @return Response
      */
     public function findAll($page, Paging $paging)
     {
@@ -43,11 +57,19 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Update comment for user
+     *
      * @Route("/profile/comment/edit/{id}", name="comment_update")
      * @Security(
      *      "user === comment.getUser()",
      *      message = "Ce commentaire ne vous appartient pas !"
      * )
+     *
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @param Comment $comment
+     *
+     * @return Response
      */
     public function update(Request $request, ObjectManager $manager, Comment $comment)
     {
@@ -66,11 +88,18 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Delete comment for user
+     *
      * @Route("/profile/comment/delete/{id}", name="comment_delete")
      * @Security(
      *      "user === comment.getUser()",
      *      message = "Ce commentaire ne vous appartient pas !"
      * )
+     *
+     * @param ObjectManager $manager
+     * @param Comment $comment
+     *
+     * @return Response
      */
     public function delete(ObjectManager $manager, Comment $comment)
     {
@@ -81,7 +110,15 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Update comment for admin
+     *
      * @Route("/admin/comment/edit/{id}", name="comment_admin_update")
+     *
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @param Comment $comment
+     *
+     * @return Response
      */
     public function updateAll(Request $request, ObjectManager $manager, Comment $comment)
     {
@@ -99,7 +136,14 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Delete comment for admin
+     *
      * @Route("/admin/comment/delete/{id}", name="comment_admin_delete")
+     *
+     * @param ObjectManager $manager
+     * @param Comment $comment
+     *
+     * @return Response
      */
     public function deleteAll(ObjectManager $manager, Comment $comment)
     {

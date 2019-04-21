@@ -10,7 +10,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
+     * Admin dashboard
+     *
      * @Route("/admin", name="admin_dashboard")
+     *
+     * @param TrickRepository $repoTrick
+     * @param CommentRepository $repoComment
+     *
+     * @return Response
      */
     public function dashboard(TrickRepository $repoTrick, CommentRepository $repoComment)
     {
