@@ -20,7 +20,7 @@
                             <strong class="text-muted d-block mb-2">Website</strong>
                             <span>
                                 {% if user.website %}
-                                    {{ user.website }}
+                                    <a href="{{ user.website }}" target="_blank">{{ user.website }}</a>
                                 {% else %}
                                     Votre website
                                 {% endif %}
@@ -76,7 +76,7 @@
                                         <div class="btn-group btn-group-sm">
                                             <button type="button" onclick="window.open('/trick/{{ comment.trick.id }}#{{ comment.id }}')" target="_blank" class="btn btn-white">
                                             <span class="text-success">
-                                            <i class="material-icons">arrow_right_alt</i>
+                                            <i class="material-icons consult">arrow_right_alt</i>
                                             </span> Consulter </button>
                                         </div>
                                     </div> 

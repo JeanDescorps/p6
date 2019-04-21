@@ -155,7 +155,6 @@ class AccountController extends AbstractController
     public function profile(Request $request, ObjectManager $manager)
     {
         $user = $this->getUser();
-        // Tester avec findBy(['id' => $user->getId()]) avec UserRepo $repo
         $userDb = $manager->createQuery('SELECT u FROM App\Entity\User u WHERE u.id = :id')->setParameter('id', $user->getId())->getScalarResult();
         $oldAvatar = $user->getAvatar();
         $user->setAvatar(new File($this->getParameter('images_directory') . '/' . $user->getAvatar()));

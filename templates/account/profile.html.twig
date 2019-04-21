@@ -19,7 +19,7 @@
                     <strong class="text-muted d-block mb-2">Website</strong>
                     <span>
                         {% if user.u_website %}
-                            {{ user.u_website }}
+                            <a href="{{ user.u_website }}" target="_blank">{{ user.u_website }}</a>
                         {% else %}
                             Votre website
                         {% endif %}
