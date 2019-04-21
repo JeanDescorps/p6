@@ -32,31 +32,43 @@
                                                 {{ form_row(form.title) }}                                              
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 text-center">
-                                                <hr>
-                                                <p class="collection-head first">Cliquez pour ajouter, supprimer ou modifier une image</p>
-                                                {{ form_widget(form.images) }}
-                                                <input type="hidden" id="image-counter" value="0">
-                                                <div class="form-group mt-2 pb-2">                                                   
-                                                    <button type="button" class="btn btn-outline-info trick" id="add-image">Ajouter une image</button>
-                                                    <span class="counter-image text-danger"></span>
+                                        <hr>
+                                        <div class="load-media d-none d-lg-block">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12 text-center">
+                                                    
+                                                    <p class="collection-head first">Cliquez pour ajouter, supprimer ou modifier une image</p>
+                                                    {{ form_widget(form.images) }}
+                                                    <input type="hidden" id="image-counter" value="0">
+                                                    <div class="form-group mt-2 pb-2">                                                   
+                                                        <button type="button" class="btn btn-outline-info trick" id="add-image">Ajouter une image</button>
+                                                        <span class="counter-image text-danger"></span>
+                                                    </div>
+                                                    <hr>                                   
                                                 </div>
-                                                <hr>                                   
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12 text-center">                                             
+                                                    <p class="collection-head">Cliquez pour ajouter, supprimer ou modifier une vidéo (<u>Youtube uniquement</u>)</p>
+                                                    {{ form_widget(form.videos) }}
+                                                    <input type="hidden" id="video-counter" value="0">
+                                                    <div class="form-group mt-2">                                             
+                                                        <button type="button" class="btn btn-outline-info trick" id="add-video">Ajouter une vidéo</button>
+                                                        <span class="counter-video text-danger"></span>
+                                                    </div>
+                                                    
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12 text-center">                                             
-                                                <p class="collection-head">Cliquez pour ajouter, supprimer ou modifier une vidéo (<u>Youtube uniquement</u>)</p>
-                                                {{ form_widget(form.videos) }}
-                                                <input type="hidden" id="video-counter" value="0">
-                                                <div class="form-group mt-2 pb-2">                                             
-                                                    <button type="button" class="btn btn-outline-info trick" id="add-video">Ajouter une vidéo</button>
-                                                    <span class="counter-video text-danger"></span>
-                                                </div>
-                                                <hr>
-                                            </div>
+                                        <div class="text-center">
+                                            <a href="#" id="loadMedia" class="d-md-block d-lg-none">
+                                                <button class="btn btn-outline-secondary">Afficher les médias</button>
+                                            </a>
+                                            <a href="#" id="hideMedia" class="d-none d-md-none d-lg-none">
+                                                <button class="btn btn-outline-secondary mt-3">Masquer les médias</button>
+                                            </a>
                                         </div>
+                                        <hr class="delimiter">
                                         <div class="col-md-8 offset-md-2">
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">

@@ -443,7 +443,12 @@ p.collection-head {
 }
 
 p.collection-head.first {
-    margin-top: 2rem;
+    margin-top: 1rem;
+}
+
+.delimiter {
+    margin-top: 0;
+    margin-bottom: 2rem;
 }
 
 .iframe-trick {
