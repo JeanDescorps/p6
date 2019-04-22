@@ -31,7 +31,7 @@
                                         <td>{{ user.username }}</td>
                                         <td>{{ user.email }}</td>
                                         <td>{{ user.website }}</td>
-                                        <td>{{ user.createdAt | date('d F Y') }}</td>
+                                        <td>{{ user.createdAt | localizeddate('none', 'none', null, null, 'dd MMMM y') }}</td>
                                         <td>
                                             <button type="submit" class="btn btn-white confirm" data-toggle="modal" data-target="#deleteUserModal" data-href="{{ path('admin_user_delete', {'id': user.id}) }}">
                                             <span class="text-danger">
@@ -77,7 +77,7 @@
                                         <td>{{ user.username }}</td>
                                         <td>{{ user.email }}</td>
                                         <td>{{ user.website }}</td>
-                                        <td>{{ user.createdAt | date('d F Y') }}</td>
+                                        <td>{{ user.createdAt | localizeddate('none', 'none', null, null, 'dd MMMM y') }}</td>
                                         <td>
                                             <button type="submit" class="btn btn-white confirm inactive" data-toggle="modal" data-target="#deleteUserModal" data-href="{{ path('admin_user_delete', {'id': user.id}) }}">
                                             <span class="text-danger">

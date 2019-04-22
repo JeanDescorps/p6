@@ -24,11 +24,11 @@
                             <span class="text-success">
                             <i class="material-icons">arrow_right_alt</i>
                             </span> Consulter </button>
-                            <button type="button" class="btn btn-white" data-toggle="modal" data-target="#deleteModal" data-href="">
+                            <button type="button" class="btn btn-white" data-toggle="modal" data-target="#deleteModal" data-href="{{ path('trick_admin_delete', {'id': trick.id}) }}">
                             <span class="text-danger">
                             <i class="material-icons">clear</i>
                             </span> Supprimer </button>
-                            <button type="button" onclick="window.location.href = '';" class="btn btn-white">
+                            <button type="button" onclick="window.location.href = '{{ path('trick_edit', {'id': trick.id}) }}';" class="btn btn-white">
                             <span class="text-light">
                             <i class="material-icons">more_vert</i>
                             </span> Modifier </button>
