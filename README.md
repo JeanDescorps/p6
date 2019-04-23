@@ -6,4 +6,3 @@
 # 4 - Run "php composer.phar update" to install dependencies (/var /vendor)
 # 4 - Import datas.sql in your server database, it contains data set
 # 5 - An admin account is already created : Username =>  Admin, Password => Admin34! // If you keep using this website, create new account and delete this one
-# 6 - An user account is already created : Username => User, Password => User321! // If you keep using this website, create new account and delete this one
