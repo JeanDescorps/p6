@@ -21,7 +21,8 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
-###> Docker volumes ###
+###> Docker ###
 .composer
 docker/data
-###< Docker volumes ###
+.bash_history
+###< Docker ###
