@@ -20,3 +20,8 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+###> Docker volumes ###
+.composer
+docker/data
+###< Docker volumes ###

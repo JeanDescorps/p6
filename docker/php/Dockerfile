@@ -20,14 +20,10 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 WORKDIR /usr/src/app
 
-COPY . /usr/src/app
-
-RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
+COPY . /usr/src/app/
 
 RUN addgroup work
 
 RUN useradd jean -d /usr/src/app -g work
-
-RUN chown -R jean:work /usr/src/app
 
 USER jean
