@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentUpdateType;
 use App\Service\Paging;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CommentController extends AbstractController
@@ -23,7 +24,7 @@ class CommentController extends AbstractController
      *
      * @return Response
      */
-    public function find($page, Paging $paging)
+    public function find($page, Paging $paging): Response
     {
         $paging->setEntityClass(Comment::class)
             ->setCurrentPage($page)
@@ -45,7 +46,7 @@ class CommentController extends AbstractController
      *
      * @return Response
      */
-    public function findAll($page, Paging $paging)
+    public function findAll($page, Paging $paging): Response
     {
         $paging->setEntityClass(Comment::class)
             ->setCurrentPage($page)
@@ -66,12 +67,12 @@ class CommentController extends AbstractController
      * )
      *
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param Comment $comment
      *
      * @return Response
      */
-    public function update(Request $request, ObjectManager $manager, Comment $comment)
+    public function update(Request $request, EntityManagerInterface $manager, Comment $comment): Response
     {
         $form = $this->createForm(CommentUpdateType::class, $comment);
         $form->handleRequest($request);
@@ -96,12 +97,12 @@ class CommentController extends AbstractController
      *      message = "Ce commentaire ne vous appartient pas !"
      * )
      *
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param Comment $comment
      *
      * @return Response
      */
-    public function delete(ObjectManager $manager, Comment $comment)
+    public function delete(EntityManagerInterface $manager, Comment $comment): Response
     {
         $manager->remove($comment);
         $manager->flush();
@@ -115,12 +116,12 @@ class CommentController extends AbstractController
      * @Route("/admin/comment/edit/{id}", name="comment_admin_update")
      *
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param Comment $comment
      *
      * @return Response
      */
-    public function updateAll(Request $request, ObjectManager $manager, Comment $comment)
+    public function updateAll(Request $request, EntityManagerInterface $manager, Comment $comment): Response
     {
         $form = $this->createForm(CommentUpdateType::class, $comment);
         $form->handleRequest($request);
@@ -140,12 +141,12 @@ class CommentController extends AbstractController
      *
      * @Route("/admin/comment/delete/{id}", name="comment_admin_delete")
      *
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param Comment $comment
      *
      * @return Response
      */
-    public function deleteAll(ObjectManager $manager, Comment $comment)
+    public function deleteAll(EntityManagerInterface $manager, Comment $comment): Response
     {
         $manager->remove($comment);
         $manager->flush();

@@ -9,9 +9,10 @@ use App\Repository\CommentRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\VideoRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -26,7 +27,7 @@ class HomeController extends AbstractController
      * @return Response
      */
 
-    public function index(TrickRepository $repo)
+    public function index(TrickRepository $repo): Response
     {
         $tricks = $repo->findAll();
         return $this->render('home/index.html.twig', [
@@ -44,11 +45,11 @@ class HomeController extends AbstractController
      * @param VideoRepository $repo_video
      * @param CommentRepository $repo_comment
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      *
      * @return Response
      */
-    public function show(Trick $trick, ImageRepository $repo_image, VideoRepository $repo_video, CommentRepository $repo_comment, Request $request, ObjectManager $manager)
+    public function show(Trick $trick, ImageRepository $repo_image, VideoRepository $repo_video, CommentRepository $repo_comment, Request $request, EntityManagerInterface $manager): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -61,9 +62,9 @@ class HomeController extends AbstractController
             $manager->flush();
             return $this->redirectToRoute('trick_show', ['id' => $trick->getId(), '_fragment' => $comment->getId()]);
         }
-        $images = $repo_image->findBy(array('trick' => $trick->getId()));
-        $videos = $repo_video->findBy(array('trick' => $trick->getId()));
-        $comments = $repo_comment->findBy(array('trick' => $trick->getId()));
+        $images = $repo_image->findBy(['trick' => $trick->getId()]);
+        $videos = $repo_video->findBy(['trick' => $trick->getId()]);
+        $comments = $repo_comment->findBy(['trick' => $trick->getId()]);
         return $this->render('home/show.html.twig', [
             'trick' => $trick,
             'images' => $images,

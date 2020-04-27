@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class Paging
 {
@@ -13,7 +13,7 @@ class Paging
     private $currentPage = 1;
     private $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
