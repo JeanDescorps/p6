@@ -12,10 +12,12 @@ use App\Form\PasswordResetType;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -32,7 +34,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function login(AuthenticationUtils $utils)
+    public function login(AuthenticationUtils $utils): Response
     {
         $error = $utils->getLastAuthenticationError();
         $username = $utils->getLastUsername();
@@ -49,7 +51,7 @@ class AccountController extends AbstractController
      *
      * @return void
      */
-    public function logout()
+    public function logout(): void
     {}
 
     /**
@@ -58,12 +60,14 @@ class AccountController extends AbstractController
      * @Route("/register", name="account_register")
      *
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param UserPasswordEncoderInterface $encoder
      *
      * @return Response
+     *
+     * @throws Exception
      */
-    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -108,24 +112,25 @@ class AccountController extends AbstractController
      *
      * @param Request $request
      * @param UserRepository $repo
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      *
      * @return Response
+     *
+     * @throws Exception
      */
-    public function confirm(Request $request, UserRepository $repo, ObjectManager $manager)
+    public function confirm(Request $request, UserRepository $repo, EntityManagerInterface $manager): ?Response
     {
         $request = Request::createFromGlobals();
         if ($request->query->get('id')) {
             $id = $request->query->get('id');
         } else {
-            throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
+            throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
         }
         if ($request->query->get('token')) {
             $token = $request->query->get('token');
         } else {
-            throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
+            throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
         }
-        $user = new User();
         $user = $repo->findOneBy(array('id' => $id));
         if ($user->getId()) {
             if ($user->getConfirmationToken() === $token) {
@@ -135,10 +140,10 @@ class AccountController extends AbstractController
                 $this->addFlash('success', 'Votre compte est validé ! Connectez-vous !');
                 return $this->redirectToRoute('account_login');
             } else {
-                throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
+                throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
             }
         } else {
-            throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
+            throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
         }
     }
 
@@ -148,11 +153,11 @@ class AccountController extends AbstractController
      * @Route("/profile", name="account_profile")
      *
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      *
      * @return Response
      */
-    public function profile(Request $request, ObjectManager $manager)
+    public function profile(Request $request, EntityManagerInterface $manager)
     {
         $user = $this->getUser();
         $userDb = $manager->createQuery('SELECT u FROM App\Entity\User u WHERE u.id = :id')->setParameter('id', $user->getId())->getScalarResult();
@@ -197,11 +202,11 @@ class AccountController extends AbstractController
      *
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      *
      * @return Response
      */
-    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $manager)
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager)
     {
         $passwordUpdate = new PasswordUpdate();
         $user = $this->getUser();
@@ -228,11 +233,11 @@ class AccountController extends AbstractController
      *
      * @param Request $request
      * @param UserRepository $repo
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      *
      * @return Response
      */
-    public function forgotPassword(Request $request, UserRepository $repo, ObjectManager $manager)
+    public function forgotPassword(Request $request, UserRepository $repo, EntityManagerInterface $manager)
     {
         $passwordForgot = new PasswordForgot();
         $user = new User();
@@ -276,23 +281,23 @@ class AccountController extends AbstractController
      *
      * @param Request $request
      * @param UserRepository $repo
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param UserPasswordEncoderInterface $encoder
      *
      * @return Response
      */
-    public function resetPassword(Request $request, UserRepository $repo, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function resetPassword(Request $request, UserRepository $repo, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $request = Request::createFromGlobals();
         if ($request->query->get('id')) {
             $id = $request->query->get('id');
         } else {
-            throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+            throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
         }
         if ($request->query->get('token')) {
             $token = $request->query->get('token');
         } else {
-            throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+            throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
         }
 
         $passwordReset = new PasswordReset();
@@ -316,13 +321,13 @@ class AccountController extends AbstractController
                         $this->addFlash('success', 'Votre mot de passe a été mis à jour ! Connectez-vous !');
                         return $this->redirectToRoute('account_login');
                     } else {
-                        throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+                        throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
                     }
                 } else {
                     $this->addFlash('success', 'Cette adresse email n\'est pas celle associée à votre compte !');
                 }
             } else {
-                throw new \Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+                throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
             }
         }
 

@@ -6,8 +6,9 @@ use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Service\Paging;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -20,11 +21,11 @@ class UserController extends AbstractController
      * @param [type] $pageAc
      * @param [type] $pageIn
      * @param Paging $paging
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      *
      * @return Response
      */
-    public function findAll($pageAc, $pageIn, Paging $paging, ObjectManager $manager)
+    public function findAll($pageAc, $pageIn, Paging $paging, EntityManagerInterface $manager): Response
     {
         $pagingInactive = $paging->setEntityClass(User::class)
             ->setCurrentPage($pageIn)
@@ -50,12 +51,12 @@ class UserController extends AbstractController
      *
      * @Route("/admin/user/delete/{id}", name="admin_user_delete")
      *
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param User $user
      *
      * @return Response
      */
-    public function delete(ObjectManager $manager, User $user)
+    public function delete(EntityManagerInterface $manager, User $user): Response
     {
         $manager->remove($user);
         $manager->flush();
@@ -72,11 +73,11 @@ class UserController extends AbstractController
      * @param [type] $page
      * @param [type] $pageT
      * @param Paging $paging
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      *
      * @return Response
      */
-    public function userProfile(User $user, $page, $pageT, Paging $paging, ObjectManager $manager)
+    public function userProfile(User $user, $page, $pageT, Paging $paging, EntityManagerInterface $manager): Response
     {
         $paging->setEntityClass(Comment::class)
             ->setCurrentPage($page)
@@ -97,5 +98,4 @@ class UserController extends AbstractController
             'pageT' => $pageT,
         ]);
     }
-
 }

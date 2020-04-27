@@ -6,10 +6,11 @@ use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\ImageRepository;
 use App\Service\Paging;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
@@ -24,7 +25,7 @@ class TrickController extends AbstractController
      *
      * @return Response
      */
-    public function find($page, Paging $paging)
+    public function find($page, Paging $paging): Response
     {
         $paging->setEntityClass(Trick::class)
             ->setCurrentPage($page)
@@ -46,7 +47,7 @@ class TrickController extends AbstractController
      *
      * @return Response
      */
-    public function findAll($page, Paging $paging)
+    public function findAll($page, Paging $paging): Response
     {
         $paging->setEntityClass(Trick::class)
             ->setCurrentPage($page)
@@ -63,11 +64,11 @@ class TrickController extends AbstractController
      * @Route("/profile/add-trick", name="trick_add")
      *
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      *
      * @return Response
      */
-    public function add(Request $request, ObjectManager $manager)
+    public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $trick = new Trick();
         $path = $this->getParameter('images_directory');
@@ -125,13 +126,13 @@ class TrickController extends AbstractController
      * )
      *
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param Trick $trick
      * @param ImageRepository $repo_image
      *
      * @return Response
      */
-    public function edit(Request $request, ObjectManager $manager, Trick $trick, ImageRepository $repo_image)
+    public function edit(Request $request, EntityManagerInterface $manager, Trick $trick, ImageRepository $repo_image): Response
     {
         $path = $this->getParameter('images_directory');
         $images = $repo_image->findBy(array('trick' => $trick->getId()));
@@ -182,12 +183,12 @@ class TrickController extends AbstractController
      *      message = "Ce trick ne vous appartient pas !"
      * )
      *
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param Trick $trick
      *
      * @return Response
      */
-    public function delete(ObjectManager $manager, Trick $trick)
+    public function delete(EntityManagerInterface $manager, Trick $trick): Response
     {
         $manager->remove($trick);
         $manager->flush();
@@ -200,12 +201,12 @@ class TrickController extends AbstractController
      *
      * @Route("/admin/trick/delete/{id}", name="trick_admin_delete")
      *
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param Trick $trick
      *
      * @return Response
      */
-    public function deleteAll(ObjectManager $manager, Trick $trick)
+    public function deleteAll(EntityManagerInterface $manager, Trick $trick): Response
     {
         $manager->remove($trick);
         $manager->flush();
