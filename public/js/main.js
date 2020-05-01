@@ -108,23 +108,13 @@ $(".img-trick").each(function () {
     var alt = $(this).attr("alt");
     $("label[for=trick_images_" + i + "_image]").text(alt);
     i++;
-})
+});
 
 /* --------------------------------------------------------------------------------- */
 
 /*  /* Trick collection */
 
 /* --------------------------------------------------------------------------------- */
-
-function handleDeleteButtons() {
-    $("button[data-action='delete']").click(function () {
-        const target = this.dataset.target;
-        $(target).remove();
-        updateCounterImage();
-        updateCounterVideo();
-        displayCounter();
-    });
-}
 
 function displayCounter() {
     const countImage = +$("#trick_images div.form-group").length;
@@ -172,6 +162,16 @@ $("#add-video").click(function () {
     handleDeleteButtons();
     displayCounter();
 });
+
+function handleDeleteButtons() {
+    $("button[data-action='delete']").click(function () {
+        const target = this.dataset.target;
+        $(target).remove();
+        updateCounterImage();
+        updateCounterVideo();
+        displayCounter();
+    });
+}
 
 displayCounter();
 updateCounterVideo();
