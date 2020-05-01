@@ -506,7 +506,7 @@ ul.pagination {
 .blog-comments__avatar img {
     width: 3.125rem;
     height: 3.125rem;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
 }
 
 div.blog-comments__content > p {
@@ -519,11 +519,6 @@ div.blog-comments__content > p {
 
 .blog-comments__actions .btn-group button {
     padding: 0.25rem 0.5625rem;
-}
-
-.btn.btn-white {
-    text-transform: none;
-    font-weight: 400;
 }
 
 .btn-group-sm > .btn {

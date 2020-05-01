@@ -96,7 +96,7 @@ class Paging
         // Total page
         $repo = $this->manager->getRepository($this->entityClass);
         $total = count($repo->findBy($this->criteria));
-        $pages = intval(ceil($total / $this->limit));
+        $pages = (int)ceil($total / $this->limit);
         return $pages;
     }
 

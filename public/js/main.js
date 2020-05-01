@@ -154,15 +154,6 @@ $("#add-image").click(function () {
     displayCounter();
 });
 
-$("#add-video").click(function () {
-    const index = +$("#video-counter").val();
-    const tmpl = $("#trick_videos").data("prototype").replace(/__name__/g, index);
-    $("#trick_videos").append(tmpl);
-    $("#video-counter").val(index + 1);
-    handleDeleteButtons();
-    displayCounter();
-});
-
 function handleDeleteButtons() {
     $("button[data-action='delete']").click(function () {
         const target = this.dataset.target;
@@ -172,6 +163,15 @@ function handleDeleteButtons() {
         displayCounter();
     });
 }
+
+$("#add-video").click(function () {
+    const index = +$("#video-counter").val();
+    const tmpl = $("#trick_videos").data("prototype").replace(/__name__/g, index);
+    $("#trick_videos").append(tmpl);
+    $("#video-counter").val(index + 1);
+    handleDeleteButtons();
+    displayCounter();
+});
 
 displayCounter();
 updateCounterVideo();
