@@ -322,9 +322,10 @@ class AccountController extends AbstractController
                 }
 
                 $this->addFlash('success', 'Cette adresse email n\'est pas celle associée à votre compte !');
-            } else {
-                throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
+                return $this->redirectToRoute('account_login');
             }
+
+            throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
         }
 
         return $this->render('account/reset-password.html.twig', [

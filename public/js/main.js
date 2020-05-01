@@ -145,15 +145,6 @@ function updateCounterVideo() {
     $("#video-counter").val(count);
 }
 
-$("#add-image").click(function () {
-    const index = +$("#image-counter").val();
-    const tmpl = $("#trick_images").data("prototype").replace(/__name__/g, index);
-    $("#trick_images").append(tmpl);
-    $("#image-counter").val(index + 1);
-    handleDeleteButtons();
-    displayCounter();
-});
-
 function handleDeleteButtons() {
     $("button[data-action='delete']").click(function () {
         const target = this.dataset.target;
@@ -163,6 +154,16 @@ function handleDeleteButtons() {
         displayCounter();
     });
 }
+
+$("#add-image").click(function () {
+    const index = +$("#image-counter").val();
+    const tmpl = $("#trick_images").data("prototype").replace(/__name__/g, index);
+    $("#trick_images").append(tmpl);
+    $("#image-counter").val(index + 1);
+    handleDeleteButtons();
+    displayCounter();
+});
+
 
 $("#add-video").click(function () {
     const index = +$("#video-counter").val();
