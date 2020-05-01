@@ -89,9 +89,8 @@ class AccountController extends AbstractController
                 'username' => $user->getUsername(),
                 'id' => $user->getId(),
                 'token' => $user->getConfirmationToken(),
-                'adress' => $_SERVER['SERVER_NAME'],
-            ]
-            );
+                'adress' => $request->server->get('SERVER_NAME')
+            ]);
             $headers = 'From: "Snowtricks"<webdev@jeandescorps.fr>' . "\n";
             $headers .= 'Reply-To: jean.webdev@gmail.com' . "\n";
             $headers .= 'Content-Type: text/html; charset="iso-8859-1"' . "\n";
@@ -120,7 +119,6 @@ class AccountController extends AbstractController
      */
     public function confirm(Request $request, UserRepository $repo, EntityManagerInterface $manager): ?Response
     {
-        $request = Request::createFromGlobals();
         if ($request->query->get('id')) {
             $id = $request->query->get('id');
         } else {
@@ -254,7 +252,7 @@ class AccountController extends AbstractController
                     'username' => $user->getUsername(),
                     'id' => $user->getId(),
                     'token' => $user->getConfirmationToken(),
-                    'adress' => $_SERVER['SERVER_NAME'],
+                    'adress' => $request->server->get('SERVER_NAME'),
                 ]
                 );
                 $headers = 'From: "Snowtricks"<webdev@jeandescorps.fr>' . "\n";
@@ -288,7 +286,6 @@ class AccountController extends AbstractController
      */
     public function resetPassword(Request $request, UserRepository $repo, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
-        $request = Request::createFromGlobals();
         if ($request->query->get('id')) {
             $id = $request->query->get('id');
         } else {
@@ -301,7 +298,6 @@ class AccountController extends AbstractController
         }
 
         $passwordReset = new PasswordReset();
-        $user = new User();
         $user = $repo->findOneBy(array('id' => $id));
 
         $form = $this->createForm(PasswordResetType::class, $passwordReset);
@@ -320,12 +316,12 @@ class AccountController extends AbstractController
                         $manager->flush();
                         $this->addFlash('success', 'Votre mot de passe a été mis à jour ! Connectez-vous !');
                         return $this->redirectToRoute('account_login');
-                    } else {
-                        throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
                     }
-                } else {
-                    $this->addFlash('success', 'Cette adresse email n\'est pas celle associée à votre compte !');
+
+                    throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
                 }
+
+                $this->addFlash('success', 'Cette adresse email n\'est pas celle associée à votre compte !');
             } else {
                 throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
             }
