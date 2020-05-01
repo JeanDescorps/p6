@@ -1,8 +1,8 @@
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 /*  /* Global Rules */
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 h4 {
     font-weight: 400;
@@ -12,11 +12,11 @@ h6 {
     font-weight: 500;
 }
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 /*  /* Navbar Aside */
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 .main-sidebar {
     top: 0;
@@ -27,7 +27,7 @@ h6 {
     will-change: transform;
     transition: -webkit-transform .2s ease-in-out;
     transition: transform .2s ease-in-out;
-    box-shadow: 0 0.125rem 9.375rem rgba(90, 97, 105, .1), 0 0.25rem 0.5rem rgba(90, 97, 105, .12), 0 0.9375rem 1.375rem rgba(90, 97, 105, .1), 0 0.4375rem 2.1875rem rgba(165, 182, 201, .1);
+    box-shadow: 0 0.125rem 9.375rem rgba(90, 97, 105, 0.1), 0 0.25rem 0.5rem rgba(90, 97, 105, 0.12), 0 0.9375rem 1.375rem rgba(90, 97, 105, 0.1), 0 0.4375rem 2.1875rem rgba(165, 182, 201, 0.1);
 }
 
 .navbar {
@@ -44,7 +44,7 @@ h6 {
     font-size: 1rem;
 }
 
-#contenu>ul {
+#contenu > ul {
     width: 100%;
 }
 
@@ -53,7 +53,7 @@ h6 {
     height: 3.75rem;
 }
 
-.main-navbar .navbar>* {
+.main-navbar .navbar > * {
     display: flex;
 }
 
@@ -69,7 +69,7 @@ h6 {
 }
 
 .nav {
-    font-size: .875rem;
+    font-size: 0.875rem;
 }
 
 .nav-item {
@@ -85,15 +85,15 @@ h6 {
     text-overflow: ellipsis;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     will-change: background-color, box-shadow, color;
-    transition: box-shadow .2s ease, color .2s ease, background-color .2s ease;
-    font-size: .85rem;
+    transition: box-shadow 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+    font-size: 0.85rem;
 }
 
 .main-sidebar .nav .nav-item .nav-link {
     border-bottom: 1px solid #e1e5eb;
     font-weight: 400;
     color: #3d5170;
-    padding: .9375rem 1.5625rem;
+    padding: 0.9375rem 1.5625rem;
     background-color: white;
 }
 
@@ -117,8 +117,8 @@ h6 {
     text-align: center;
     vertical-align: middle;
     will-change: color;
-    transition: color .2s ease;
-    margin-right: .375rem;
+    transition: color 0.2s ease;
+    margin-right: 0.375rem;
 }
 
 i.material-icons {
@@ -127,13 +127,13 @@ i.material-icons {
     top: 2px;
 }
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 /*  /* Top Navbar */
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
-body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white>nav>ul>li>a>span {
+body > div.container-fluid > div > div > div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white > nav > ul > li > a > span {
     font-weight: 500;
 }
 
@@ -154,13 +154,13 @@ body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sti
     border-top: none;
 }
 
-body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white>nav>ul>li>a {
+body > div.container-fluid > div > div > div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white > nav > ul > li > a {
     color: #3d5170;
     font-size: 0.95rem;
 }
 
-body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white>nav>ul>li>a:hover,
-body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white>nav>ul>li>a:focus {
+body > div.container-fluid > div > div > div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white > nav > ul > li > a:hover,
+body > div.container-fluid > div > div > div.d-none.d-md-none.d-lg-block.main-navbar.sticky-top.bg-white > nav > ul > li > a:focus {
     color: black;
 }
 
@@ -196,17 +196,17 @@ body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sti
     transition: background-color 250ms cubic-bezier(.27, .01, .38, 1.06), color 250ms cubic-bezier(.27, .01, .38, 1.06);
 }
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 /*  /* Main Content */
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 .main-content-container {
     background-color: #f5f6f8;
 }
 
-.main-content>.main-content-container.container-fluid {
+.main-content > .main-content-container.container-fluid {
     min-height: calc(100vh - 7.5rem);
 }
 
@@ -236,43 +236,43 @@ body>div.container-fluid>div>div>div.d-none.d-md-none.d-lg-block.main-navbar.sti
     padding: 1rem 1rem;
 }
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 /*  /* User Card */
 
-/*-------------------------------*/
+/* ----------------------------- */
 
-body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div>div {
+body > div.container-fluid > div > div > div.main-content-container.container-fluid.px-4 > div:nth-child(2) > div > div > div {
     background-color: white;
 }
 
-body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div>ul>li.list-group-item.p-4 {
+body > div.container-fluid > div > div > div.main-content-container.container-fluid.px-4 > div:nth-child(2) > div > div > ul > li.list-group-item.p-4 {
     border-bottom-left-radius: 0.625rem;
     border-bottom-right-radius: 0.625rem;
 }
 
-body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div>div>div>ul>li>strong {
+body > div.container-fluid > div > div > div.main-content-container.container-fluid.px-4 > div > div > div > ul > li > strong {
     font-weight: 600;
 }
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 /*  /* Update Card */
 
-/*-------------------------------*/
+/* ----------------------------- */
 
-body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div.col-lg-8>div>div {
+body > div.container-fluid > div > div > div.main-content-container.container-fluid.px-4 > div:nth-child(2) > div.col-lg-8 > div > div {
     padding: 1rem 1rem;
     border-top-left-radius: 0.625rem;
     border-top-right-radius: 0.625rem;
 }
 
-.card>.list-group:last-child .list-group-item:last-child {
+.card > .list-group:last-child .list-group-item:last-child {
     border-bottom-left-radius: 0.625rem;
     border-bottom-right-radius: 0.625rem;
 }
 
-body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div.col-lg-8>div>ul>li>div>div>form>div:nth-child(2)>div:nth-child(1)>div>div>label {
+body > div.container-fluid > div > div > div.main-content-container.container-fluid.px-4 > div:nth-child(2) > div.col-lg-8 > div > ul > li > div > div > form > div:nth-child(2) > div:nth-child(1) > div > div > label {
     height: 2.813rem;
 }
 
@@ -284,11 +284,11 @@ body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4
     height: 10rem;
 }
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 /*  /* Trick card */
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 .card {
     background-color: #fff;
@@ -314,7 +314,7 @@ body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4
     bottom: 0;
 }
 
-div.card-post__image>div>a {
+div.card-post__image > div > a {
     color: #1a1a1a;
     text-decoration: none;
     background-color: transparent;
@@ -341,11 +341,11 @@ div.card-post__image>div>a {
     border-bottom-right-radius: 0.625rem;
 }
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 /*  /* Trick */
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 #trick_content {
     height: 10rem;
@@ -355,19 +355,19 @@ div.card-post__image>div>a {
     height: 2.813rem;
 }
 
-body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div>ul>li>div>div>form>div:nth-child(3)>div {
+body > div.container-fluid > div > div > div.main-content-container.container-fluid.px-4 > div:nth-child(2) > div > div > ul > li > div > div > form > div:nth-child(3) > div {
     margin-bottom: 2.5rem;
 }
 
-.block-image>div.col-md-6>div {
+.block-image > div.col-md-6 > div {
     height: 45px;
 }
 
-#trick_images>fieldset {
+#trick_images > fieldset {
     margin: 0;
 }
 
-#trick_videos>fieldset {
+#trick_videos > fieldset {
     margin: 0;
 }
 
@@ -401,14 +401,13 @@ body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4
 }
 
 
-
-/*-------------------------------*/
+/* ----------------------------- */
 
 /*  /* Comments */
 
-/*-------------------------------*/
+/* ----------------------------- */
 
-body>div.container-fluid>div>div>div.main-content-container.container-fluid.px-4>div:nth-child(2)>div>div>div.card-header {
+body > div.container-fluid > div > div > div.main-content-container.container-fluid.px-4 > div:nth-child(2) > div > div > div.card-header {
     border-bottom: none;
 }
 
@@ -434,7 +433,7 @@ div.card-body.p-0.row {
     border-radius: .25rem;
 }
 
-div.blog-comments__content>p {
+div.blog-comments__content > p {
     font-weight: 600;
 }
 
@@ -459,7 +458,7 @@ div.blog-comments__content>p {
     color: #818ea3 !important;
 }
 
-.btn-group>.btn:first-child {
+.btn-group > .btn:first-child {
     margin-left: 0;
 }
 
@@ -476,7 +475,7 @@ div.blog-comments__content>p {
     color: #3d5170;
 }
 
-.btn-group-sm>.btn,
+.btn-group-sm > .btn,
 .btn-sm {
     padding: .4286rem .875rem;
     font-size: .8rem;
@@ -484,8 +483,8 @@ div.blog-comments__content>p {
     border-radius: .25rem;
 }
 
-.btn-group-vertical>.btn,
-.btn-group>.btn {
+.btn-group-vertical > .btn,
+.btn-group > .btn {
     position: relative;
     -ms-flex: 0 1 auto;
     flex: 0 1 auto;
@@ -504,8 +503,8 @@ div.blog-comments__content>p {
     box-shadow: none;
 }
 
-.btn-group-vertical>.btn:hover,
-.btn-group>.btn:hover {
+.btn-group-vertical > .btn:hover,
+.btn-group > .btn:hover {
     z-index: 1;
 }
 
@@ -526,21 +525,21 @@ div.blog-comments__content>p {
     border-radius: 0.625rem;
 }
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 /*  /* Update Comment */
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 #comment_update_content {
     height: 14rem;
 }
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 /*  /* Users */
 
-/*-------------------------------*/
+/* ----------------------------- */
 
 .card-footer.paging.user-active {
     background-color: white;
@@ -555,26 +554,26 @@ div.blog-comments__content>p {
     padding: 0.75rem;
 }
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 /*  /* Footer */
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 .main-footer {
     height: 3.75rem;
 }
 
-body>div.container-fluid>div>div>footer>ul {
+body > div.container-fluid > div > div > footer > ul {
     padding: 0.4rem 1rem 1rem 1rem;
 }
 
-body>div.container-fluid>div>div>footer>ul>li>a {
+body > div.container-fluid > div > div > footer > ul > li > a {
     color: #3d5170;
 }
 
-body>div.container-fluid>div>div>footer>ul>li>a:hover,
-body>div.container-fluid>div>div>footer>ul>li>a:focus {
+body > div.container-fluid > div > div > footer > ul > li > a:hover,
+body > div.container-fluid > div > div > footer > ul > li > a:focus {
     color: black;
 }
 
@@ -582,11 +581,11 @@ body>div.container-fluid>div>div>footer>ul>li>a:focus {
     color: #3d5170;
 }
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 /*  /* Pagination */
 
-/*-----------------------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------------- */
 
 ul.pagination {
     margin: 0;
