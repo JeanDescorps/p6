@@ -1,7 +1,16 @@
-# Project 6 of "PHP/Symfony" course for OpenClassrooms
+# Snowtricks
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5ed4fc13a41840c0a08ae73643d8903f)](https://www.codacy.com/manual/JeanD34/p6?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JeanD34/p6&amp;utm_campaign=Badge_Grade)
+
+Project 6 of [PHP/Symfony](https://jeandescorps.fr/symfony.pdf#page=17) course for [OpenClassrooms](https://openclassrooms.com/)
 
 [Snowtricks](http://snowtricks.jeandescorps.fr/) is a website where users can add and comment tricks, the admin can manage everyone tricks and comments.
 
+## Build with
+    
+- Symfony 5
+- Bootstrap 4
+    
 ## Installation
 
 __1 - Git clone the project__
