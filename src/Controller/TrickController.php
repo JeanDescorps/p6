@@ -20,7 +20,7 @@ class TrickController extends AbstractController
      *
      * @Route("/profile/trick/{page<\d+>?1}", name="trick_user")
      *
-     * @param [type] $page
+     * @param int $page
      * @param Paging $paging
      *
      * @return Response
@@ -42,7 +42,7 @@ class TrickController extends AbstractController
      *
      * @Route("/admin/trick/{page<\d+>?1}", name="admin_trick")
      *
-     * @param [type] $page
+     * @param int $page
      * @param Paging $paging
      *
      * @return Response

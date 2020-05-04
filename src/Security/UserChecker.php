@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\User;
 use App\Exception\AccountUnconfirmedException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,10 +17,8 @@ class UserChecker implements UserCheckerInterface
     /**
      * {@inheritdoc}
      */
-    public function checkPreAuth(UserInterface $user)
-    {
-
-    }
+    public function checkPreAuth(UserInterface $user): void
+    {}
 
     /**
      * Checking if user is confirmed
@@ -30,8 +29,12 @@ class UserChecker implements UserCheckerInterface
      *
      * @throws AccountUnconfirmedException
      */
-    public function checkPostAuth(UserInterface $user)
+    public function checkPostAuth(UserInterface $user): void
     {
+        if (!$user instanceof User) {
+            return;
+        }
+
         if (!$user->getConfirmed()) {
             throw new AccountUnconfirmedException('Vous devez valider votre compte avant de pouvoir vous connecter.');
         }

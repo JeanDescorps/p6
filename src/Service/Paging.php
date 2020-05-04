@@ -23,97 +23,83 @@ class Paging
         return $this->entityClass;
     }
 
-    public function setEntityClass($entityClass)
+    public function setEntityClass($entityClass): Paging
     {
         $this->entityClass = $entityClass;
 
         return $this;
     }
 
-    public function getLimit()
+    public function getLimit(): int
     {
         return $this->limit;
     }
 
-    public function setLimit($limit)
+    public function setLimit($limit): Paging
     {
         $this->limit = $limit;
 
         return $this;
     }
 
-    public function getCurrentPage()
+    public function getCurrentPage(): int
     {
         return $this->currentPage;
     }
 
-    public function setCurrentPage($currentPage)
+    public function setCurrentPage($currentPage): Paging
     {
         $this->currentPage = $currentPage;
 
         return $this;
     }
 
-    public function getCriteria()
+    public function getCriteria(): array
     {
         return $this->criteria;
     }
 
-    public function setCriteria($criteria)
+    public function setCriteria($criteria): Paging
     {
         $this->criteria = $criteria;
 
         return $this;
     }
 
-    public function getOrder()
+    public function getOrder(): array
     {
         return $this->order;
     }
 
-    public function setOrder($order)
+    public function setOrder($order): Paging
     {
         $this->order = $order;
 
         return $this;
     }
 
-    public function getData()
+    public function getData(): array
     {
-        // Offset
         $offset = $this->currentPage * $this->limit - $this->limit;
-
-        // Get elements
         $repo = $this->manager->getRepository($this->entityClass);
-        $data = $repo->findBy($this->criteria, $this->order, $this->limit, $offset);
 
-        // Return
-        return $data;
+        return $repo->findBy($this->criteria, $this->order, $this->limit, $offset);
     }
 
-    public function getPages()
+    public function getPages(): int
     {
-        // Total page
         $repo = $this->manager->getRepository($this->entityClass);
         $total = count($repo->findBy($this->criteria));
-        $pages = (int)ceil($total / $this->limit);
-        return $pages;
+
+        return (int)ceil($total / $this->limit);
     }
 
-    /**
-     * Get the value of manager
-     */
-    public function getManager()
+    public function getManager(): EntityManagerInterface
     {
         return $this->manager;
     }
 
-    /**
-     * Set the value of manager
-     *
-     * @return  self
-     */
-    public function setManager($manager)
+    public function setManager($manager): Paging
     {
         $this->manager = $manager;
 

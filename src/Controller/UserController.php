@@ -18,8 +18,8 @@ class UserController extends AbstractController
      *
      * @Route("/admin/user/{pageAc<\d+>?1}/{pageIn<\d+>?1}", name="admin_user")
      *
-     * @param [type] $pageAc
-     * @param [type] $pageIn
+     * @param int $pageAc
+     * @param int $pageIn
      * @param Paging $paging
      * @param EntityManagerInterface $manager
      *
@@ -70,8 +70,8 @@ class UserController extends AbstractController
      * @Route("/user/{id}/{page<\d+>?1}/{pageT<\d+>?1}", name="user_profile")
      *
      * @param User $user
-     * @param [type] $page
-     * @param [type] $pageT
+     * @param int $page
+     * @param int $pageT
      * @param Paging $paging
      * @param EntityManagerInterface $manager
      *

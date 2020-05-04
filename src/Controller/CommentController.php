@@ -19,7 +19,7 @@ class CommentController extends AbstractController
      *
      * @Route("/profile/comment/{page<\d+>?1}", name="comment_user")
      *
-     * @param [type] $page
+     * @param int $page
      * @param Paging $paging
      *
      * @return Response
@@ -41,7 +41,7 @@ class CommentController extends AbstractController
      *
      * @Route("/admin/comment/{page<\d+>?1}", name="admin_comment")
      *
-     * @param [type] $page
+     * @param int $page
      * @param Paging $paging
      *
      * @return Response

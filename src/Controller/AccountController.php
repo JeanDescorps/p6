@@ -24,7 +24,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AccountController extends AbstractController
 {
-
     /**
      * Login function
      *
@@ -89,7 +88,7 @@ class AccountController extends AbstractController
                 'username' => $user->getUsername(),
                 'id' => $user->getId(),
                 'token' => $user->getConfirmationToken(),
-                'adress' => $request->server->get('SERVER_NAME')
+                'address' => $request->server->get('SERVER_NAME')
             ]);
             $headers = 'From: "Snowtricks"<webdev@jeandescorps.fr>' . "\n";
             $headers .= 'Reply-To: jean.webdev@gmail.com' . "\n";
@@ -119,30 +118,27 @@ class AccountController extends AbstractController
      */
     public function confirm(Request $request, UserRepository $repo, EntityManagerInterface $manager): ?Response
     {
-        if ($request->query->get('id')) {
-            $id = $request->query->get('id');
-        } else {
+        if (!$request->query->get('id')) {
             throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
         }
-        if ($request->query->get('token')) {
-            $token = $request->query->get('token');
-        } else {
+        if (!$request->query->get('token')) {
             throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
         }
-        $user = $repo->findOneBy(array('id' => $id));
-        if ($user->getId()) {
-            if ($user->getConfirmationToken() === $token) {
-                $user->setConfirmationToken(null)
-                    ->setConfirmed(true);
-                $manager->flush();
-                $this->addFlash('success', 'Votre compte est validé ! Connectez-vous !');
-                return $this->redirectToRoute('account_login');
-            } else {
-                throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
-            }
-        } else {
-            throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
+
+        $id = $request->query->get('id');
+        $token = $request->query->get('token');
+
+        /** @var User $user */
+        $user = $repo->findOneBy(['id' => $id]);
+        if ($user->getId() && $user->getConfirmationToken() === $token) {
+            $user->setConfirmationToken(null)
+                ->setConfirmed(true);
+            $manager->flush();
+            $this->addFlash('success', 'Votre compte est validé ! Connectez-vous !');
+            return $this->redirectToRoute('account_login');
         }
+
+        throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour vous valider !');
     }
 
     /**
@@ -157,6 +153,7 @@ class AccountController extends AbstractController
      */
     public function profile(Request $request, EntityManagerInterface $manager)
     {
+        /** @var User $user */
         $user = $this->getUser();
         $userDb = $manager->createQuery('SELECT u FROM App\Entity\User u WHERE u.id = :id')->setParameter('id', $user->getId())->getScalarResult();
         $oldAvatar = $user->getAvatar();
@@ -166,9 +163,8 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            if ($form->get('avatar')->getData() !== null && $form->get('avatar')->getData() !== $user->getAvatar()) {
-
+            $currentAvatar = $form->get('avatar')->getData();
+            if ($currentAvatar !== null && $currentAvatar !== $user->getAvatar()) {
                 $newAvatar = $form->get('avatar')->getData();
                 $avatarName = $this->generateUniqueFileName() . '.' . $newAvatar->guessExtension();
                 $newAvatar->move(
@@ -204,9 +200,10 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager)
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager): Response
     {
         $passwordUpdate = new PasswordUpdate();
+        /** @var User $user */
         $user = $this->getUser();
         $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
         $form->handleRequest($request);
@@ -234,16 +231,18 @@ class AccountController extends AbstractController
      * @param EntityManagerInterface $manager
      *
      * @return Response
+     *
+     * @throws Exception
      */
-    public function forgotPassword(Request $request, UserRepository $repo, EntityManagerInterface $manager)
+    public function forgotPassword(Request $request, UserRepository $repo, EntityManagerInterface $manager): Response
     {
         $passwordForgot = new PasswordForgot();
-        $user = new User();
         $form = $this->createForm(PasswordForgotType::class, $passwordForgot);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($repo->findOneBy(array('username' => $passwordForgot->getUsername()))) {
-                $user = $repo->findOneBy(array('username' => $passwordForgot->getUsername()));
+            if ($repo->findOneBy(['username' => $passwordForgot->getUsername()])) {
+                /** @var User $user */
+                $user = $repo->findOneBy(['username' => $passwordForgot->getUsername()]);
                 $confirmation_token = md5(random_bytes(60));
                 $user->setConfirmationToken($confirmation_token);
                 $manager->flush();
@@ -252,7 +251,7 @@ class AccountController extends AbstractController
                     'username' => $user->getUsername(),
                     'id' => $user->getId(),
                     'token' => $user->getConfirmationToken(),
-                    'adress' => $request->server->get('SERVER_NAME'),
+                    'address' => $request->server->get('SERVER_NAME'),
                 ]
                 );
                 $headers = 'From: "Snowtricks"<webdev@jeandescorps.fr>' . "\n";
@@ -283,6 +282,8 @@ class AccountController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      *
      * @return Response
+     *
+     * @throws Exception
      */
     public function resetPassword(Request $request, UserRepository $repo, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -297,6 +298,7 @@ class AccountController extends AbstractController
         $id = $request->query->get('id');
 
         $passwordReset = new PasswordReset();
+        /** @var User $user */
         $user = $repo->findOneBy(['id' => $id]);
 
         $form = $this->createForm(PasswordResetType::class, $passwordReset);
@@ -337,8 +339,8 @@ class AccountController extends AbstractController
      *
      * @return string
      */
-    private function generateUniqueFileName()
+    private function generateUniqueFileName(): string
     {
-        return md5(uniqid());
+        return md5(uniqid('', true));
     }
 }
