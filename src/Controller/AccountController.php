@@ -262,10 +262,10 @@ class AccountController extends AbstractController
                 mail($user->getEmail(), $subject, $content, $headers);
                 $this->addFlash('success', 'Un email vient de vous être envoyé pour réinitialiser votre mot de passe !');
                 return $this->redirectToRoute('account_forgot');
-            } else {
-                $this->addFlash('danger', 'Cet utilisateur n\'existe pas.');
-                return $this->redirectToRoute('account_forgot');
             }
+
+            $this->addFlash('danger', 'Cet utilisateur n\'existe pas.');
+            return $this->redirectToRoute('account_forgot');
         }
         return $this->render('account/forgot-password.html.twig', [
             'form' => $form->createView(),
