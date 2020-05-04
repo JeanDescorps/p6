@@ -6,8 +6,9 @@ RUN docker-php-ext-install pdo_mysql
 RUN pecl install apcu
 
 RUN apt-get update && \
-apt-get install -y \
-zlib1g-dev
+    apt-get install -y \
+    --no-install-recommends zlib1g-dev
+&& rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install zip
 RUN docker-php-ext-enable apcu

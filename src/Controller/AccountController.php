@@ -286,19 +286,18 @@ class AccountController extends AbstractController
      */
     public function resetPassword(Request $request, UserRepository $repo, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
-        if ($request->query->get('id')) {
-            $id = $request->query->get('id');
-        } else {
+        if (!$request->query->get('id')) {
             throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
         }
-        if ($request->query->get('token')) {
-            $token = $request->query->get('token');
-        } else {
+        if (!$request->query->get('token')) {
             throw new Exception('Veuillez cliquer sur le lien fournit dans l\'email qui vous a été envoyé pour réinitialiser votre mot de passe !');
         }
 
+        $token = $request->query->get('token');
+        $id = $request->query->get('id');
+
         $passwordReset = new PasswordReset();
-        $user = $repo->findOneBy(array('id' => $id));
+        $user = $repo->findOneBy(['id' => $id]);
 
         $form = $this->createForm(PasswordResetType::class, $passwordReset);
         $form->handleRequest($request);
